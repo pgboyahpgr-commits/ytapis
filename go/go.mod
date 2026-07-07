@@ -1,3 +1,4 @@
-module github.com/ytapis/ytapis/go
+module github.com/pgboyahpgr-commits/ytapis/go
 
 go 1.21
+

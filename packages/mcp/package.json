@@ -1,33 +1,41 @@
 {
-  "name": "ytapis-mcp",
-  "version": "1.0.0",
-  "description": "MCP server for YouTube search — use with AI assistants",
-  "keywords": ["youtube", "search", "mcp", "ai", "model-context-protocol"],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ytapis/ytapis"
-  },
-  "license": "MIT",
-  "type": "module",
-  "main": "dist/index.js",
-  "bin": {
-    "ytapis-mcp": "./dist/index.js"
-  },
-  "files": ["dist"],
-  "scripts": {
-    "build": "tsup src/index.ts --format esm --clean",
-    "start": "node dist/index.js",
-    "prepublishOnly": "npm run build"
-  },
-  "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.8.0",
-    "ytapis-core": "^1.0.0"
-  },
-  "devDependencies": {
-    "tsup": "^8.4.0",
-    "typescript": "^5.7.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  }
+    "name":  "ytapis-mcp",
+    "version":  "1.0.0",
+    "description":  "MCP server for YouTube search ??? use with AI assistants",
+    "keywords":  [
+                     "youtube",
+                     "search",
+                     "mcp",
+                     "ai",
+                     "model-context-protocol"
+                 ],
+    "repository":  {
+                       "type":  "git",
+                       "url":  "https://github.com/pgboyahpgr-commits/ytapis.git"
+                   },
+    "license":  "MIT",
+    "type":  "module",
+    "main":  "dist/index.js",
+    "bin":  {
+                "ytapis-mcp":  "./dist/index.js"
+            },
+    "files":  [
+                  "dist"
+              ],
+    "scripts":  {
+                    "build":  "tsup src/index.ts --format esm --clean",
+                    "start":  "node dist/index.js",
+                    "prepublishOnly":  "npm run build"
+                },
+    "dependencies":  {
+                         "@modelcontextprotocol/sdk":  "^1.8.0",
+                         "ytapis-core":  "^1.0.0"
+                     },
+    "devDependencies":  {
+                            "tsup":  "^8.4.0",
+                            "typescript":  "^5.7.0"
+                        },
+    "engines":  {
+                    "node":  "\u003e=18.0.0"
+                }
 }

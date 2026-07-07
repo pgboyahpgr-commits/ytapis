@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ytapis/ytapis/go"
+	"github.com/pgboyahpgr-commits/ytapis/go"
 )
 
 func main() {
@@ -49,3 +49,4 @@ func main() {
 	}
 	fmt.Println(result)
 }
+

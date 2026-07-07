@@ -12,7 +12,7 @@
                  ],
     "repository":  {
                        "type":  "git",
-                       "url":  "https://github.com/ytapis/ytapis"
+                       "url":  "https://github.com/pgboyahpgr-commits/ytapis.git"
                    },
     "license":  "MIT",
     "main":  "dist/index.js",

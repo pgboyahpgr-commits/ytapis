@@ -129,3 +129,4 @@ func SearchJSON(query string, limit ...int) (string, error) {
 	}
 	return sb.String(), nil
 }
+

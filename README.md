@@ -1,8 +1,8 @@
 # ytapis
 
-Search YouTube and get video metadata — **no API key required**.
+Search YouTube and get video metadata ??? **no API key required**.
 
-**What you get:** Video ID, title, author, thumbnail, and URLs — from any search query.
+**What you get:** Video ID, title, author, thumbnail, and URLs ??? from any search query.
 
 ## Packages
 
@@ -12,7 +12,7 @@ Search YouTube and get video metadata — **no API key required**.
 | **CLI** | `ytapis-cli` | `npx ytapis search cats` | Terminal |
 | **MCP Server** | `ytapis-mcp` | `npx ytapis-mcp` | AI assistants |
 | **Python** | `ytapis` | `pip install ytapis` | `from ytapis import search` |
-| **Go** | `github.com/ytapis/ytapis/go` | `go get` | `ytapi.Search("cats")` |
+| **Go** | `github.com/pgboyahpgr-commits/ytapis/go` | `go get` | `ytapi.Search("cats")` |
 | **Dart** | `ytapis` | `dart pub add ytapis` | `search("cats")` |
 
 ## Quick examples
@@ -37,7 +37,7 @@ for v in results:
 ### Go
 
 ```go
-import "github.com/ytapis/ytapis/go"
+import "github.com/pgboyahpgr-commits/ytapis/go"
 results, _ := ytapi.Search("cats", 5)
 ```
 
@@ -69,3 +69,4 @@ https://ytapis-demo.yourname.workers.dev/?q=cats&limit=5
 ## License
 
 MIT
+
