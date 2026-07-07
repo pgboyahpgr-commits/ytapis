@@ -1,0 +1,46 @@
+name: Publish to GitHub Packages
+
+on:
+  push:
+    branches: [master]
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+      - run: npm ci
+      - run: npm run build
+      - name: Publish core to GitHub Packages
+        run: |
+          cd packages/core
+          jq '.name = "@pgboyahpgr-commits/ytapis-core" | .publishConfig = {"registry": "https://npm.pkg.github.com/"}' package.json > tmp.json
+          mv tmp.json package.json
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish cli to GitHub Packages
+        run: |
+          cd packages/cli
+          jq '.name = "@pgboyahpgr-commits/ytapis-cli" | .publishConfig = {"registry": "https://npm.pkg.github.com/"}' package.json > tmp.json
+          mv tmp.json package.json
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish mcp to GitHub Packages
+        run: |
+          cd packages/mcp
+          jq '.name = "@pgboyahpgr-commits/ytapis-mcp" | .publishConfig = {"registry": "https://npm.pkg.github.com/"}' package.json > tmp.json
+          mv tmp.json package.json
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
