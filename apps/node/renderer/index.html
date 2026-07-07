@@ -7,7 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
 body{background:#1e1e1e;color:#f1f1f1;min-height:100vh}
-.container{max-width:900px;margin:0 auto;padding:20px}
+.container{max-width:1000px;margin:0 auto;padding:20px}
 h1{font-size:1.8rem;font-weight:700;background:linear-gradient(135deg,#f9d423,#ff4e50);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:4px}
 .sub{color:#888;font-size:.85rem;text-align:center;margin-bottom:16px}
 .search-row{display:flex;gap:8px;margin-bottom:16px}
@@ -16,40 +16,71 @@ h1{font-size:1.8rem;font-weight:700;background:linear-gradient(135deg,#f9d423,#f
 .search-row button{padding:10px 24px;background:#3ea6ff;color:#0f0f0f;border:none;border-radius:8px;font-weight:700;font-size:1rem;cursor:pointer}
 .search-row button:hover{background:#65b8ff}
 .search-row button:disabled{opacity:.5;cursor:not-allowed}
-.status{color:#aaa;font-size:.85rem;margin-bottom:12px;min-height:20px}
-.results{display:flex;flex-direction:column;gap:8px}
-.card{background:#2a2a2a;border-radius:8px;padding:12px 14px;transition:background .15s}
+.status{color:#aaa;font-size:.85rem;margin-bottom:8px;min-height:20px}
+.split{display:flex;gap:16px;height:calc(100vh - 180px)}
+.results-panel{width:380px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+.player-panel{flex:1;display:none;flex-direction:column;background:#0a0a0a;border-radius:8px;overflow:hidden}
+.player-panel.show{display:flex}
+.player-panel iframe{width:100%;aspect-ratio:16/9;border:none;background:#000}
+.player-panel .info{padding:12px 14px}
+.player-panel .info h2{font-size:1.1rem;font-weight:600;margin-bottom:2px}
+.player-panel .info .author{color:#888;font-size:.85rem}
+.player-panel .info .links{display:flex;gap:8px;margin-top:8px}
+.player-panel .info .links a{padding:4px 14px;border-radius:4px;font-size:.8rem;font-weight:600;text-decoration:none}
+.player-panel .info .links .watch-link{background:#ff4d4d;color:#fff}
+.player-panel .info .links .thumb-link{background:#444;color:#ccc}
+.card{background:#2a2a2a;border-radius:8px;padding:10px 12px;cursor:pointer;transition:background .15s;border:2px solid transparent}
 .card:hover{background:#333}
-.card h3{font-size:.95rem;font-weight:600;color:#f1f1f1;margin-bottom:2px}
-.card .meta{color:#888;font-size:.8rem;margin-bottom:6px}
-.card .actions{display:flex;gap:8px}
-.card .actions button{padding:4px 14px;border-radius:4px;border:none;font-size:.8rem;font-weight:600;cursor:pointer}
-.card .watch-btn{background:#3ea6ff;color:#0f0f0f}
-.card .watch-btn:hover{background:#65b8ff}
-.card .thumb-btn{background:#444;color:#ccc}
-.card .thumb-btn:hover{background:#555}
+.card.active{border-color:#3ea6ff;background:#2a3a4a}
+.card h3{font-size:.88rem;font-weight:600;color:#f1f1f1;margin-bottom:1px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .meta{color:#888;font-size:.75rem}
+.card .vid{color:#555;font-size:.7rem}
 .spinner{text-align:center;padding:40px;color:#666}
 .spinner::after{content:'';display:inline-block;width:30px;height:30px;border:3px solid #333;border-top-color:#3ea6ff;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .empty{text-align:center;padding:40px;color:#555;font-size:.9rem}
+.placeholder{display:flex;align-items:center;justify-content:center;color:#444;font-size:.9rem;flex:1}
 </style>
 </head>
 <body>
 <div class="container">
   <h1>ytapis</h1>
-  <p class="sub">YouTube Search Desktop App</p>
+  <p class="sub">YouTube Search Desktop App &mdash; click any result to play</p>
   <div class="search-row">
     <input type="text" id="query" placeholder="Search YouTube..." />
     <button id="searchBtn">Search</button>
   </div>
   <div class="status" id="status">Enter a query to search YouTube</div>
-  <div class="results" id="results"></div>
+  <div class="split">
+    <div class="results-panel" id="results"></div>
+    <div class="player-panel" id="playerPanel">
+      <iframe id="playerFrame" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <div class="info">
+        <h2 id="videoTitle"></h2>
+        <div class="author" id="videoAuthor"></div>
+        <div class="links">
+          <a class="watch-link" id="watchLink" href="#" target="_blank">Watch on YouTube</a>
+          <a class="thumb-link" id="thumbLink" href="#" target="_blank">Thumbnail</a>
+        </div>
+      </div>
+    </div>
+    <div class="placeholder" id="placeholder">Click a video result to play it here</div>
+  </div>
 </div>
 <script>
 const query = document.getElementById('query');
 const btn = document.getElementById('searchBtn');
 const status = document.getElementById('status');
 const results = document.getElementById('results');
+const playerPanel = document.getElementById('playerPanel');
+const placeholder = document.getElementById('placeholder');
+const playerFrame = document.getElementById('playerFrame');
+const videoTitle = document.getElementById('videoTitle');
+const videoAuthor = document.getElementById('videoAuthor');
+const watchLink = document.getElementById('watchLink');
+const thumbLink = document.getElementById('thumbLink');
+
+let data = [];
 
 query.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
 btn.addEventListener('click', doSearch);
@@ -72,28 +103,36 @@ async function doSearch() {
     results.innerHTML = '<div class="empty">No results found.</div>';
     return;
   }
-  status.textContent = 'Found ' + res.data.length + ' results.';
+  data = res.data;
+  status.textContent = 'Found ' + data.length + ' results. Click any to play.';
   results.innerHTML = '';
-  res.data.forEach(v => {
+  data.forEach((v, i) => {
     const card = document.createElement('div');
-    card.className = 'card';
-    const url = v.fullUrl || 'https://www.youtube.com/watch?v=' + v.id;
-    const thumb = v.thumbnail || 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg';
+    card.className = 'card' + (i === 0 ? ' active' : '');
     card.innerHTML = '<h3>' + esc(v.title || 'Untitled') + '</h3>' +
-      '<div class="meta">by ' + esc(v.author || 'Unknown') + ' &middot; ' + v.id + '</div>' +
-      '<div class="actions">' +
-      '<button class="watch-btn" onclick="window.open(\'' + url + '\',\'_blank\')">Watch</button>' +
-      '<button class="thumb-btn" onclick="window.open(\'' + thumb + '\',\'_blank\')">Thumbnail</button></div>';
+      '<div class="meta">' + esc(v.author || 'Unknown') + '</div>' +
+      '<div class="vid">' + v.id + '</div>';
+    card.addEventListener('click', () => playVideo(i, card));
     results.appendChild(card);
   });
+  if (data.length > 0) playVideo(0, results.children[0]);
 }
 
-function esc(s) {
-  if (!s) return '';
-  var d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
+function playVideo(index, cardEl) {
+  const v = data[index];
+  if (!v) return;
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+  if (cardEl) cardEl.classList.add('active');
+  playerPanel.classList.add('show');
+  placeholder.style.display = 'none';
+  videoTitle.textContent = v.title || 'Untitled';
+  videoAuthor.textContent = v.author || 'Unknown';
+  watchLink.href = v.fullUrl || 'https://www.youtube.com/watch?v=' + v.id;
+  thumbLink.href = v.thumbnail || 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg';
+  playerFrame.src = 'https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0';
 }
+
+function esc(s) { if (!s) return ''; var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 </script>
 </body>
 </html>

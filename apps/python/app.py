@@ -23,27 +23,20 @@ class YtapisApp:
         style.configure('Title.TLabel', font=('Segoe UI', 11, 'bold'), foreground='#f1f1f1', wraplength=300)
         style.configure('Author.TLabel', font=('Segoe UI', 9), foreground='#888')
         style.configure('Status.TLabel', font=('Segoe UI', 9), foreground='#aaa')
-        style.configure('Stats.TLabel', font=('Segoe UI', 9), foreground='#3ea6ff')
 
-        header = ttk.Label(root, text="ytapis", style='Header.TLabel')
-        header.pack(pady=(16, 2))
-
-        sub = ttk.Label(root, text="YouTube Search  |  No API Key Required", style='Status.TLabel')
-        sub.pack(pady=(0, 12))
+        ttk.Label(root, text="ytapis", style='Header.TLabel').pack(pady=(16, 2))
+        ttk.Label(root, text="YouTube Search  |  No API Key Required", style='Status.TLabel').pack(pady=(0, 12))
 
         search_frame = ttk.Frame(root)
         search_frame.pack(fill=tk.X, padx=20, pady=(0, 8))
-
         self.search_entry = ttk.Entry(search_frame, font=('Segoe UI', 12))
         self.search_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=(0, 8), ipady=6)
         self.search_entry.bind('<Return>', lambda e: self.do_search())
-
         self.search_btn = ttk.Button(search_frame, text="Search", style='Search.TButton', command=self.do_search)
         self.search_btn.pack(side=tk.RIGHT)
 
         self.status_label = ttk.Label(root, text="Enter a query to search YouTube", style='Status.TLabel')
         self.status_label.pack(pady=(0, 6))
-
         self.progress = ttk.Progressbar(root, mode='indeterminate', length=200)
         self.progress.pack(pady=(0, 8))
         self.progress.pack_forget()
@@ -111,26 +104,48 @@ class YtapisApp:
 
         btn_frame = tk.Frame(frame, bg='#2a2a2a')
         btn_frame.pack(anchor=tk.W, pady=(4, 0))
-        watch_btn = tk.Button(btn_frame, text="Watch on YouTube", bg='#3ea6ff', fg='#0f0f0f',
-                              font=('Segoe UI', 9, 'bold'), bd=0, padx=12, pady=2, cursor='hand2',
-                              activebackground='#65b8ff',
-                              command=lambda u=url: webbrowser.open(u))
-        watch_btn.pack(side=tk.LEFT, padx=(0, 6))
-        watch_btn.bind('<Enter>', lambda e: watch_btn.configure(bg='#65b8ff'))
-        watch_btn.bind('<Leave>', lambda e: watch_btn.configure(bg='#3ea6ff'))
 
-        thumb_link = f'https://i.ytimg.com/vi/{vid}/hqdefault.jpg'
-        thumb_btn = tk.Button(btn_frame, text="View Thumbnail", bg='#444', fg='#ccc',
+        play_btn = tk.Button(btn_frame, text="\u25B6 Play Video", bg='#ff4d4d', fg='#fff',
+                              font=('Segoe UI', 9, 'bold'), bd=0, padx=14, pady=2, cursor='hand2',
+                              activebackground='#e04040',
+                              command=lambda u=url: webbrowser.open(u))
+        play_btn.pack(side=tk.LEFT, padx=(0, 6))
+        play_btn.bind('<Enter>', lambda e: play_btn.configure(bg='#e04040'))
+        play_btn.bind('<Leave>', lambda e: play_btn.configure(bg='#ff4d4d'))
+
+        info_btn = tk.Button(btn_frame, text="Info", bg='#444', fg='#ccc',
                               font=('Segoe UI', 9), bd=0, padx=12, pady=2, cursor='hand2',
                               activebackground='#555',
-                              command=lambda u=thumb_link: webbrowser.open(u))
-        thumb_btn.pack(side=tk.LEFT)
-        thumb_btn.bind('<Enter>', lambda e: thumb_btn.configure(bg='#555'))
-        thumb_btn.bind('<Leave>', lambda e: thumb_btn.configure(bg='#444'))
+                              command=lambda: self._show_info(v))
+        info_btn.pack(side=tk.LEFT)
+        info_btn.bind('<Enter>', lambda e: info_btn.configure(bg='#555'))
+        info_btn.bind('<Leave>', lambda e: info_btn.configure(bg='#444'))
+
+    def _show_info(self, v):
+        win = tk.Toplevel(self.root)
+        win.title("Video Info")
+        win.geometry("520x400")
+        win.configure(bg='#1e1e1e')
+        ttk.Label(win, text=v.get('title', 'Untitled'), style='Header.TLabel').pack(pady=(16, 4))
+        ttk.Label(win, text=f"by {v.get('author', 'Unknown')}", style='Status.TLabel').pack()
+        ttk.Label(win, text=f"ID: {v.get('id', '')}", style='Status.TLabel').pack(pady=(4, 0))
+        vid = v.get('id', '')
+        embed_url = f"https://www.youtube.com/embed/{vid}?autoplay=1&rel=0"
+        ttk.Label(win, text="\nClick below to play in your browser:", style='Status.TLabel').pack(pady=(12, 4))
+        play_link = tk.Button(win, text=f"\u25B6 Play: {v.get('title', '')[:50]}",
+                              bg='#ff4d4d', fg='#fff',
+                              font=('Segoe UI', 10, 'bold'), bd=0, padx=16, pady=6,
+                              cursor='hand2', activebackground='#e04040',
+                              command=lambda u=v.get('fullUrl', f'https://www.youtube.com/watch?v={vid}'): webbrowser.open(u))
+        play_link.pack(pady=6)
+        play_link.bind('<Enter>', lambda e: play_link.configure(bg='#e04040'))
+        play_link.bind('<Leave>', lambda e: play_link.configure(bg='#ff4d4d'))
+        tk.Button(win, text="Close", bg='#444', fg='#ccc', font=('Segoe UI', 9),
+                  bd=0, padx=12, pady=2, command=win.destroy).pack(pady=(12, 0))
 
 def main():
     root = tk.Tk()
-    app = YtapisApp(root)
+    YtapisApp(root)
     root.mainloop()
 
 if __name__ == '__main__':

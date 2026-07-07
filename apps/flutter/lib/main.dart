@@ -43,7 +43,7 @@ class _SearchPageState extends State<SearchPage> {
       final r = await search(q, limit: 15);
       setState(() {
         _results = r;
-        _status = 'Found ${r.length} results.';
+        _status = 'Found ${r.length} results. Tap any to play.';
         _loading = false;
       });
     } catch (e) {
@@ -57,10 +57,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ytapis'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('ytapis'), centerTitle: true),
       body: Column(
         children: [
           Padding(
@@ -93,15 +90,10 @@ class _SearchPageState extends State<SearchPage> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              _status,
-              style: TextStyle(color: Colors.grey[400], fontSize: 13),
-            ),
+            child: Text(_status, style: TextStyle(color: Colors.grey[400], fontSize: 13)),
           ),
           if (_loading)
-            const Expanded(
-              child: Center(child: CircularProgressIndicator()),
-            )
+            const Expanded(child: Center(child: CircularProgressIndicator()))
           else
             Expanded(
               child: _results.isEmpty
@@ -116,28 +108,73 @@ class _SearchPageState extends State<SearchPage> {
                         margin: const EdgeInsets.only(bottom: 6),
                         child: ListTile(
                           title: Text(v.title, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-                          subtitle: Text('by ${v.author}  •  ${v.id}', style: TextStyle(color: Colors.grey[500], fontSize: 12)),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.play_arrow, color: Color(0xFF3EA6FF)),
-                                tooltip: 'Watch',
-                                onPressed: () => launchUrl(Uri.parse(v.fullUrl)),
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.image, color: Colors.grey),
-                                tooltip: 'Thumbnail',
-                                onPressed: () => launchUrl(Uri.parse(v.thumbnail)),
-                              ),
-                            ],
-                          ),
+                          subtitle: Text('${v.author}  •  ${v.id}', style: TextStyle(color: Colors.grey[500], fontSize: 12)),
+                          trailing: const Icon(Icons.play_circle_fill, color: Color(0xFF3EA6FF)),
+                          onTap: () => _openVideo(v),
                         ),
                       );
                     },
                   ),
             ),
         ],
+      ),
+    );
+  }
+
+  void _openVideo(VideoResult v) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: const Color(0xFF1e1e1e),
+      builder: (ctx) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(v.title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 4),
+            Text(v.author, style: TextStyle(color: Colors.grey[400], fontSize: 14)),
+            const SizedBox(height: 4),
+            Text(v.id, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+            const SizedBox(height: 16),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.play_arrow),
+                label: const Text('Play Video in Browser'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFF4D4D),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+                onPressed: () {
+                  launchUrl(Uri.parse(v.fullUrl));
+                  Navigator.pop(ctx);
+                },
+              ),
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                icon: const Icon(Icons.image),
+                label: const Text('View Thumbnail'),
+                onPressed: () {
+                  launchUrl(Uri.parse(v.thumbnail));
+                  Navigator.pop(ctx);
+                },
+              ),
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                child: const Text('Close'),
+                onPressed: () => Navigator.pop(ctx),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
