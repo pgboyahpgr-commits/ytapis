@@ -1,0 +1,14 @@
+{
+  "name": "ytapis-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/core",
+    "packages/cli",
+    "packages/worker",
+    "packages/mcp"
+  ],
+  "scripts": {
+    "build": "npm run build -w packages/core && npm run build -w packages/cli -w packages/mcp",
+    "test": "npm run test -w packages/core"
+  }
+}

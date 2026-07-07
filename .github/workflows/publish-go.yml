@@ -1,0 +1,17 @@
+name: Tag Go Module
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tag go module
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          cd go
+          git tag "go/${TAG}"
+          git push origin "go/${TAG}"

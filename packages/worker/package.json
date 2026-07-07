@@ -1,0 +1,17 @@
+{
+  "name": "@ytapi/worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for YouTube search — demo API",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@ytapi/core": "^1.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250201.0",
+    "wrangler": "^3.0.0"
+  }
+}

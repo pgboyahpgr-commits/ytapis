@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.cache/
+*.tsbuildinfo
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.go/
+*.exe
+.dart_tool/
+.pub/
+.packages
+.env
+wrangler.toml

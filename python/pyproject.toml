@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=75.0", "setuptools-scm>=8.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "ytapi"
+version = "1.0.0"
+description = "Search YouTube and get video metadata — no API key required"
+readme = "README.md"
+license = { text = "MIT" }
+keywords = ["youtube", "search", "scraper", "metadata"]
+requires-python = ">=3.8"
+
+[project.urls]
+Homepage = "https://github.com/ytapis/ytapis"
+Repository = "https://github.com/ytapis/ytapis"
+
+[project.scripts]
+ytapi = "ytapi.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["ytapi*"]

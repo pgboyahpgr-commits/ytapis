@@ -1,0 +1,35 @@
+{
+  "name": "@ytapi/core",
+  "version": "1.0.0",
+  "description": "Search YouTube and get video metadata — no API key required",
+  "keywords": ["youtube", "search", "scraper", "metadata", "innertube", "oembed"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ytapis/ytapis"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "test": "node -e \"require('./dist/index.js').search('cats').then(r => console.log('OK:', r.length, 'results'))\"",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
