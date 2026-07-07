@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ytapis Search</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+body{background:#1e1e1e;color:#f1f1f1;min-height:100vh}
+.container{max-width:900px;margin:0 auto;padding:20px}
+h1{font-size:1.8rem;font-weight:700;background:linear-gradient(135deg,#f9d423,#ff4e50);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:4px}
+.sub{color:#888;font-size:.85rem;text-align:center;margin-bottom:16px}
+.search-row{display:flex;gap:8px;margin-bottom:16px}
+.search-row input{flex:1;padding:10px 14px;border:1px solid #444;border-radius:8px;background:#2a2a2a;color:#fff;font-size:1rem;outline:none}
+.search-row input:focus{border-color:#3ea6ff}
+.search-row button{padding:10px 24px;background:#3ea6ff;color:#0f0f0f;border:none;border-radius:8px;font-weight:700;font-size:1rem;cursor:pointer}
+.search-row button:hover{background:#65b8ff}
+.search-row button:disabled{opacity:.5;cursor:not-allowed}
+.status{color:#aaa;font-size:.85rem;margin-bottom:12px;min-height:20px}
+.results{display:flex;flex-direction:column;gap:8px}
+.card{background:#2a2a2a;border-radius:8px;padding:12px 14px;transition:background .15s}
+.card:hover{background:#333}
+.card h3{font-size:.95rem;font-weight:600;color:#f1f1f1;margin-bottom:2px}
+.card .meta{color:#888;font-size:.8rem;margin-bottom:6px}
+.card .actions{display:flex;gap:8px}
+.card .actions button{padding:4px 14px;border-radius:4px;border:none;font-size:.8rem;font-weight:600;cursor:pointer}
+.card .watch-btn{background:#3ea6ff;color:#0f0f0f}
+.card .watch-btn:hover{background:#65b8ff}
+.card .thumb-btn{background:#444;color:#ccc}
+.card .thumb-btn:hover{background:#555}
+.spinner{text-align:center;padding:40px;color:#666}
+.spinner::after{content:'';display:inline-block;width:30px;height:30px;border:3px solid #333;border-top-color:#3ea6ff;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{text-align:center;padding:40px;color:#555;font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>ytapis</h1>
+  <p class="sub">YouTube Search Desktop App</p>
+  <div class="search-row">
+    <input type="text" id="query" placeholder="Search YouTube..." />
+    <button id="searchBtn">Search</button>
+  </div>
+  <div class="status" id="status">Enter a query to search YouTube</div>
+  <div class="results" id="results"></div>
+</div>
+<script>
+const query = document.getElementById('query');
+const btn = document.getElementById('searchBtn');
+const status = document.getElementById('status');
+const results = document.getElementById('results');
+
+query.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+btn.addEventListener('click', doSearch);
+
+async function doSearch() {
+  const q = query.value.trim();
+  if (!q) return;
+  btn.disabled = true;
+  status.textContent = 'Searching...';
+  results.innerHTML = '<div class="spinner"></div>';
+  const res = await window.ytapis.search(q);
+  btn.disabled = false;
+  if (!res.ok) {
+    status.textContent = 'Error: ' + res.error;
+    results.innerHTML = '<div class="empty">Error: ' + res.error + '</div>';
+    return;
+  }
+  if (!res.data || !res.data.length) {
+    status.textContent = 'No results found.';
+    results.innerHTML = '<div class="empty">No results found.</div>';
+    return;
+  }
+  status.textContent = 'Found ' + res.data.length + ' results.';
+  results.innerHTML = '';
+  res.data.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const url = v.fullUrl || 'https://www.youtube.com/watch?v=' + v.id;
+    const thumb = v.thumbnail || 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg';
+    card.innerHTML = '<h3>' + esc(v.title || 'Untitled') + '</h3>' +
+      '<div class="meta">by ' + esc(v.author || 'Unknown') + ' &middot; ' + v.id + '</div>' +
+      '<div class="actions">' +
+      '<button class="watch-btn" onclick="window.open(\'' + url + '\',\'_blank\')">Watch</button>' +
+      '<button class="thumb-btn" onclick="window.open(\'' + thumb + '\',\'_blank\')">Thumbnail</button></div>';
+    results.appendChild(card);
+  });
+}
+
+function esc(s) {
+  if (!s) return '';
+  var d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+</script>
+</body>
+</html>

@@ -74,17 +74,15 @@ https://ytapis.djalokyt27.workers.dev/?q=cats&limit=5
 2. Extracts video IDs from the page
 3. Fetches metadata via YouTube's official oEmbed API
 
-## Mini UI Apps
+## Desktop Apps
 
-Each app is a self-contained local web server that uses its respective ytapis package directly.
-Open `http://localhost:PORT` in your browser after starting.
+Native Windows GUI apps using the ytapis packages directly.
 
-| Language | Run from source | Build .exe |
-|----------|----------------|------------|
-| **Python** | `cd apps/python && pip install -r requirements.txt && python app.py` (port 5000) | `cd apps/python && build.bat` (16 MB) |
-| **Node.js** | `cd apps/node && npm install && npm start` (port 3000) | `cd apps/node && build.bat` (36 MB) |
-| **Go** | `cd apps/go && go run main.go` (port 8080) | `cd apps/go && build.bat` (7 MB) |
-| **Dart** | `cd apps/dart && dart pub get && dart run server.dart` (port 8080) | `cd apps/dart && build.bat` (6 MB) |
+| App | Directory | Framework | Run from source | Build .exe |
+|-----|-----------|-----------|----------------|------------|
+| **Python** | `apps/python/` | tkinter | `pip install -r requirements.txt && python app.py` | `build.bat` (11 MB) |
+| **Node.js** | `apps/node/` | Electron | `npm install && npm start` | `build.bat` (71 MB) |
+| **Flutter** | `apps/flutter/` | Flutter Desktop | `flutter pub get && flutter run` | `build.bat` (25 MB) |
 
 ## License
 

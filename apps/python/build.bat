@@ -1,5 +1,6 @@
 @echo off
-echo Building ytapis Python app...
-pyinstaller --noconfirm --onefile --console --add-data "templates;templates" --name "ytapis-python" app.py
+cd /d "%~dp0"
+echo Building ytapis Python desktop app...
+python -m PyInstaller --noconfirm --onefile --console --hidden-import=ytapis --name "ytapis-python" app.py
 echo Done! exe is at dist\ytapis-python.exe
 pause

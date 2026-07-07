@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ytapis &ndash; Mini Apps</title>
+<title>ytapis &ndash; Desktop Apps</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -26,8 +26,7 @@
   .table tr:hover td { background: #151515; }
   .table .lang { font-weight: 600; color: #f9d423; font-size: 0.8rem; text-transform: uppercase; }
   .table .pkg { color: #aaa; font-size: 0.78rem; font-family: monospace; }
-  .table .cmd { color: #555; font-size: 0.78rem; font-family: monospace; }
-  .table .cmd code { background: #1a1a1a; padding: 2px 8px; border-radius: 4px; color: #3ea6ff; font-size: 0.78rem; }
+  .table .desc2 { color: #888; font-size: 0.78rem; }
   .table .link { color: #3ea6ff; text-decoration: none; font-size: 0.82rem; }
   .table .link:hover { text-decoration: underline; }
 
@@ -39,34 +38,28 @@
 <body>
 <div class="container">
   <h1>ytapis</h1>
-  <p class="sub">Mini UI apps &mdash; for every language</p>
-  <p class="desc">Each app is a self-contained web server that uses the ytapis package directly.</p>
+  <p class="sub">Desktop Apps &mdash; native Windows GUI</p>
+  <p class="desc">Each app is a native desktop application using the ytapis package directly.</p>
 
   <table class="table">
-    <tr><th>Language</th><th>Package</th><th>Run (source)</th><th>Build .exe</th></tr>
+    <tr><th>App</th><th>Package</th><th>Framework</th><th>Size</th></tr>
     <tr>
       <td class="lang">Python</td>
       <td class="pkg">ytapis (PyPI)</td>
-      <td class="cmd"><code>cd apps/python &amp;&amp; python app.py</code></td>
-      <td><a class="link" href="#python">pyinstaller</a> (16 MB)</td>
+      <td class="desc2">tkinter</td>
+      <td>11 MB</td>
     </tr>
     <tr>
       <td class="lang">Node.js</td>
       <td class="pkg">ytapis-core (npm)</td>
-      <td class="cmd"><code>cd apps/node &amp;&amp; npm install &amp;&amp; npm start</code></td>
-      <td><a class="link" href="#node">pkg</a> (36 MB)</td>
+      <td class="desc2">Electron</td>
+      <td>71 MB</td>
     </tr>
     <tr>
-      <td class="lang">Go</td>
-      <td class="pkg">ytapis/go</td>
-      <td class="cmd"><code>cd apps/go &amp;&amp; go run main.go</code></td>
-      <td><a class="link" href="#go">go build</a> (7 MB)</td>
-    </tr>
-    <tr>
-      <td class="lang">Dart</td>
+      <td class="lang">Flutter</td>
       <td class="pkg">ytapis (pub.dev)</td>
-      <td class="cmd"><code>cd apps/dart &amp;&amp; dart run server.dart</code></td>
-      <td><a class="link" href="#dart">dart compile</a> (6 MB)</td>
+      <td class="desc2">Flutter Desktop</td>
+      <td>25 MB</td>
     </tr>
   </table>
 

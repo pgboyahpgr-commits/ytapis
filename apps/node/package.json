@@ -1,13 +1,33 @@
 {
-  "name": "ytapis-node-app",
+  "name": "ytapis-electron",
   "version": "1.0.0",
+  "description": "YouTube Search Desktop App powered by ytapis-core",
+  "main": "main.js",
   "private": true,
-  "description": "Mini YouTube search UI powered by ytapis-core",
   "scripts": {
-    "start": "node server.js"
+    "start": "electron .",
+    "build": "electron-builder --win portable"
+  },
+  "build": {
+    "appId": "ytapis.electron.app",
+    "productName": "ytapis-search",
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*"
+    ],
+    "extraResources": [
+      "node_modules/ytapis-core/**/*"
+    ],
+    "win": {
+      "target": "portable"
+    }
   },
   "dependencies": {
-    "express": "^4.21.0",
     "ytapis-core": "^1.0.0"
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
   }
 }

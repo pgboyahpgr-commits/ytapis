@@ -1,7 +1,7 @@
 @echo off
-echo Building ytapis Node.js app...
-npx pkg server.js --targets node18-win-x64 --output dist\ytapis-node.exe
-if not exist "dist" mkdir dist
-xcopy /y public dist\public\
-echo Done! exe is at dist\ytapis-node.exe
+cd /d "%~dp0"
+echo Building ytapis Electron app...
+call npm install 2>nul
+npx electron-builder --win portable
+echo Done! exe is at dist\ytapis-search*.exe
 pause
