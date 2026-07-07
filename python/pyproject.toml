@@ -12,8 +12,8 @@ keywords = ["youtube", "search", "scraper", "metadata"]
 requires-python = ">=3.8"
 
 [project.urls]
-Homepage = "https://github.com/ytapis/ytapis"
-Repository = "https://github.com/ytapis/ytapis"
+Homepage = "https://github.com/pgboyahpgr-commits/ytapis"
+Repository = "https://github.com/pgboyahpgr-commits/ytapis"
 
 [project.scripts]
 ytapis = "ytapis.cli:main"

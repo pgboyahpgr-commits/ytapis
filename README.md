@@ -57,8 +57,16 @@ ytapis search cats --limit 5
 ### API Demo (Cloudflare Worker)
 
 ```
-https://ytapis-demo.yourname.workers.dev/?q=cats&limit=5
+https://ytapis.djalokyt27.workers.dev/?q=cats&limit=5
 ```
+
+## Mini UI Apps
+
+| App | Description |
+|-----|-------------|
+| [Search UI](/apps/search/) | Search YouTube and browse results as cards |
+| [Video Info](/apps/video-info/) | Look up video metadata and preview via embed |
+| [Apps Home](/apps/) | Landing page linking all mini apps |
 
 ## How it works
 

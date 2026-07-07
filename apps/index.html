@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ytapis &ndash; Mini Apps</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0f0f0f; color: #eee; min-height: 100vh; display: flex;
+    align-items: center; justify-content: center;
+  }
+  .container { max-width: 640px; margin: 0 auto; padding: 32px 16px; text-align: center; }
+
+  h1 {
+    font-size: 2.4rem; font-weight: 700; letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #ff4d4d, #f9f9f9);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  p.sub { color: #888; margin: 6px 0 32px; font-size: 0.95rem; }
+
+  .cards { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .card {
+    background: #1a1a1a; border-radius: 14px; padding: 28px 24px; width: 260px;
+    text-decoration: none; color: #eee; transition: transform .15s, box-shadow .15s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.4); }
+  .card .icon { font-size: 2rem; margin-bottom: 12px; }
+  .card h2 { font-size: 1.15rem; font-weight: 600; }
+  .card p { color: #888; font-size: 0.82rem; margin-top: 6px; line-height: 1.4; }
+
+  footer { margin-top: 36px; font-size: 0.78rem; color: #555; }
+  footer a { color: #ff8080; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>ytapis</h1>
+  <p class="sub">Mini UI apps powered by the ytapis packages</p>
+
+  <div class="cards">
+    <a class="card" href="/search/">
+      <div class="icon">&#128269;</div>
+      <h2>YouTube Search</h2>
+      <p>Search YouTube videos and browse results with thumbnails</p>
+    </a>
+    <a class="card" href="/video-info/">
+      <div class="icon">&#128196;</div>
+      <h2>Video Info</h2>
+      <p>Look up video metadata and preview via the embed player</p>
+    </a>
+  </div>
+
+  <footer>
+    <a href="https://github.com/pgboyahpgr-commits/ytapis" target="_blank">GitHub</a> &middot;
+    <a href="https://www.npmjs.com/package/ytapis-core" target="_blank">npm</a> &middot;
+    <a href="https://pypi.org/project/ytapis/" target="_blank">PyPI</a> &middot;
+    <a href="https://pub.dev/packages/ytapis" target="_blank">pub.dev</a>
+  </footer>
+</div>
+</body>
+</html>
