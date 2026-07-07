@@ -74,6 +74,18 @@ https://ytapis.djalokyt27.workers.dev/?q=cats&limit=5
 2. Extracts video IDs from the page
 3. Fetches metadata via YouTube's official oEmbed API
 
+## Mini UI Apps
+
+Each app is a self-contained local web server that uses its respective ytapis package directly.
+Open `http://localhost:PORT` in your browser after starting.
+
+| Language | Run |
+|----------|-----|
+| **Python** | `cd apps/python && pip install -r requirements.txt && python app.py` (port 5000) |
+| **Node.js** | `cd apps/node && npm install && npm start` (port 3000) |
+| **Go** | `cd apps/go && go run main.go` (port 8080) |
+| **Dart** | `cd apps/dart && dart pub get && dart run server.dart` (port 8080) |
+
 ## License
 
 MIT

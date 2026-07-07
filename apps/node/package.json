@@ -1,0 +1,13 @@
+{
+  "name": "ytapis-node-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mini YouTube search UI powered by ytapis-core",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "ytapis-core": "^1.0.0"
+  }
+}

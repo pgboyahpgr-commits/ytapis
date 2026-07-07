@@ -8,27 +8,28 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #0f0f0f; color: #eee; min-height: 100vh; display: flex;
-    align-items: center; justify-content: center;
+    background: #0f0f0f; color: #eee; min-height: 100vh;
   }
-  .container { max-width: 640px; margin: 0 auto; padding: 32px 16px; text-align: center; }
+  .container { max-width: 800px; margin: 0 auto; padding: 32px 16px; text-align: center; }
 
   h1 {
     font-size: 2.4rem; font-weight: 700; letter-spacing: -0.02em;
     background: linear-gradient(135deg, #ff4d4d, #f9f9f9);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   }
-  p.sub { color: #888; margin: 6px 0 32px; font-size: 0.95rem; }
+  p.sub { color: #888; margin: 6px 0 12px; font-size: 0.95rem; }
+  p.desc { color: #555; margin-bottom: 32px; font-size: 0.85rem; }
 
-  .cards { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-  .card {
-    background: #1a1a1a; border-radius: 14px; padding: 28px 24px; width: 260px;
-    text-decoration: none; color: #eee; transition: transform .15s, box-shadow .15s;
-  }
-  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.4); }
-  .card .icon { font-size: 2rem; margin-bottom: 12px; }
-  .card h2 { font-size: 1.15rem; font-weight: 600; }
-  .card p { color: #888; font-size: 0.82rem; margin-top: 6px; line-height: 1.4; }
+  .table { width: 100%; border-collapse: collapse; text-align: left; }
+  .table th { color: #888; font-size: 0.75rem; text-transform: uppercase; letter-spacing: .05em; padding: 8px 12px; border-bottom: 1px solid #333; }
+  .table td { padding: 12px; border-bottom: 1px solid #222; vertical-align: middle; }
+  .table tr:hover td { background: #151515; }
+  .table .lang { font-weight: 600; color: #f9d423; font-size: 0.8rem; text-transform: uppercase; }
+  .table .pkg { color: #aaa; font-size: 0.78rem; font-family: monospace; }
+  .table .cmd { color: #555; font-size: 0.78rem; font-family: monospace; }
+  .table .cmd code { background: #1a1a1a; padding: 2px 8px; border-radius: 4px; color: #3ea6ff; font-size: 0.78rem; }
+  .table .link { color: #3ea6ff; text-decoration: none; font-size: 0.82rem; }
+  .table .link:hover { text-decoration: underline; }
 
   footer { margin-top: 36px; font-size: 0.78rem; color: #555; }
   footer a { color: #ff8080; text-decoration: none; }
@@ -38,20 +39,36 @@
 <body>
 <div class="container">
   <h1>ytapis</h1>
-  <p class="sub">Mini UI apps powered by the ytapis packages</p>
+  <p class="sub">Mini UI apps &mdash; for every language</p>
+  <p class="desc">Each app is a self-contained web server that uses the ytapis package directly.</p>
 
-  <div class="cards">
-    <a class="card" href="/search/">
-      <div class="icon">&#128269;</div>
-      <h2>YouTube Search</h2>
-      <p>Search YouTube videos and browse results with thumbnails</p>
-    </a>
-    <a class="card" href="/video-info/">
-      <div class="icon">&#128196;</div>
-      <h2>Video Info</h2>
-      <p>Look up video metadata and preview via the embed player</p>
-    </a>
-  </div>
+  <table class="table">
+    <tr><th>Language</th><th>Package</th><th>Run</th><th></th></tr>
+    <tr>
+      <td class="lang">Python</td>
+      <td class="pkg">ytapis (PyPI)</td>
+      <td class="cmd"><code>cd apps/python &amp;&amp; python app.py</code></td>
+      <td><a class="link" href="https://github.com/pgboyahpgr-commits/ytapis/tree/master/apps/python">Source</a></td>
+    </tr>
+    <tr>
+      <td class="lang">Node.js</td>
+      <td class="pkg">ytapis-core (npm)</td>
+      <td class="cmd"><code>cd apps/node &amp;&amp; npm install &amp;&amp; npm start</code></td>
+      <td><a class="link" href="https://github.com/pgboyahpgr-commits/ytapis/tree/master/apps/node">Source</a></td>
+    </tr>
+    <tr>
+      <td class="lang">Go</td>
+      <td class="pkg">ytapis/go</td>
+      <td class="cmd"><code>cd apps/go &amp;&amp; go run main.go</code></td>
+      <td><a class="link" href="https://github.com/pgboyahpgr-commits/ytapis/tree/master/apps/go">Source</a></td>
+    </tr>
+    <tr>
+      <td class="lang">Dart</td>
+      <td class="pkg">ytapis (pub.dev)</td>
+      <td class="cmd"><code>cd apps/dart &amp;&amp; dart run server.dart</code></td>
+      <td><a class="link" href="https://github.com/pgboyahpgr-commits/ytapis/tree/master/apps/go">Source</a></td>
+    </tr>
+  </table>
 
   <footer>
     <a href="https://github.com/pgboyahpgr-commits/ytapis" target="_blank">GitHub</a> &middot;
