@@ -8,19 +8,19 @@ Search YouTube and get video metadata — **no API key required**.
 
 | Platform | Package | Install | Usage |
 |----------|---------|---------|-------|
-| **TypeScript** | `@ytapi/core` | `npm i @ytapi/core` | `search("cats")` |
-| **CLI** | `@ytapi/cli` | `npx @ytapi search cats` | Terminal |
-| **MCP Server** | `@ytapi/mcp` | `npx @ytapi-mcp` | AI assistants |
-| **Python** | `ytapi` | `pip install ytapi` | `from ytapi import search` |
-| **Go** | `ytapi-go` | `go get` | `ytapi.Search("cats")` |
-| **Dart** | `ytapi` | `dart pub add ytapi` | `search("cats")` |
+| **TypeScript** | `ytapis-core` | `npm i ytapis-core` | `search("cats")` |
+| **CLI** | `ytapis-cli` | `npx ytapis search cats` | Terminal |
+| **MCP Server** | `ytapis-mcp` | `npx ytapis-mcp` | AI assistants |
+| **Python** | `ytapis` | `pip install ytapis` | `from ytapis import search` |
+| **Go** | `github.com/ytapis/ytapis/go` | `go get` | `ytapi.Search("cats")` |
+| **Dart** | `ytapis` | `dart pub add ytapis` | `search("cats")` |
 
 ## Quick examples
 
 ### TypeScript
 
 ```ts
-import { search } from '@ytapi/core'
+import { search } from 'ytapis-core'
 const videos = await search('cats', { limit: 5 })
 console.log(videos[0].title, videos[0].author)
 ```
@@ -28,7 +28,7 @@ console.log(videos[0].title, videos[0].author)
 ### Python
 
 ```py
-from ytapi import search
+from ytapis import search
 results = search("cats", limit=5)
 for v in results:
     print(v["title"], "-", v["author"])
@@ -44,20 +44,20 @@ results, _ := ytapi.Search("cats", 5)
 ### Dart
 
 ```dart
-import 'package:ytapi/ytapi.dart';
+import 'package:ytapis/ytapis.dart';
 final results = await search('cats', limit: 5);
 ```
 
 ### CLI
 
 ```bash
-ytapi search cats --limit 5
+ytapis search cats --limit 5
 ```
 
 ### API Demo (Cloudflare Worker)
 
 ```
-https://ytapi-demo.yourname.workers.dev/?q=cats&limit=5
+https://ytapis-demo.yourname.workers.dev/?q=cats&limit=5
 ```
 
 ## How it works

@@ -1,5 +1,5 @@
 {
-  "name": "@ytapi/cli",
+  "name": "ytapis-cli",
   "version": "1.0.0",
   "description": "CLI tool to search YouTube and get video metadata",
   "keywords": ["youtube", "search", "cli", "metadata"],
@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "bin": {
-    "ytapi": "./dist/index.js"
+    "ytapis": "./dist/index.js"
   },
   "files": ["dist"],
   "scripts": {
@@ -17,7 +17,7 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@ytapi/core": "^1.0.0"
+    "ytapis-core": "^1.0.0"
   },
   "devDependencies": {
     "tsup": "^8.4.0",

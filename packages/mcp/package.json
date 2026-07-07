@@ -1,5 +1,5 @@
 {
-  "name": "@ytapi/mcp",
+  "name": "ytapis-mcp",
   "version": "1.0.0",
   "description": "MCP server for YouTube search — use with AI assistants",
   "keywords": ["youtube", "search", "mcp", "ai", "model-context-protocol"],
@@ -11,7 +11,7 @@
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "ytapi-mcp": "./dist/index.js"
+    "ytapis-mcp": "./dist/index.js"
   },
   "files": ["dist"],
   "scripts": {
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.8.0",
-    "@ytapi/core": "^1.0.0"
+    "ytapis-core": "^1.0.0"
   },
   "devDependencies": {
     "tsup": "^8.4.0",

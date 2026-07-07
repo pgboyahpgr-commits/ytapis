@@ -1,5 +1,5 @@
 {
-  "name": "@ytapi/core",
+  "name": "ytapis-core",
   "version": "1.0.0",
   "description": "Search YouTube and get video metadata — no API key required",
   "keywords": ["youtube", "search", "scraper", "metadata", "innertube", "oembed"],

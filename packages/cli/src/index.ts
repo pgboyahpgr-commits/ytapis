@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { search } from '@ytapi/core';
+import { search } from 'ytapis-core';
 
 async function main() {
   const args = process.argv.slice(2);

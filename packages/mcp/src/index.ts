@@ -5,7 +5,7 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from '@modelcontextprotocol/sdk/types.js';
-import { search } from '@ytapi/core';
+import { search } from 'ytapis-core';
 
 const server = new Server(
   { name: 'ytapi-mcp', version: '1.0.0' },

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ytapi/ytapi.dart';
+import 'package:ytapis/ytapis.dart';
 
 Future<void> main(List<String> args) async {
   if (args.length < 2 || args[0] != 'search') {
