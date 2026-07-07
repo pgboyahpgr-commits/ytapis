@@ -2,6 +2,7 @@
     "name":  "ytapis-cli",
     "version":  "1.0.0",
     "description":  "CLI tool to search YouTube and get video metadata",
+    "author":  "geethudinoyt",
     "keywords":  [
                      "youtube",
                      "search",

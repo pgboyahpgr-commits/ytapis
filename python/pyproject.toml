@@ -11,6 +11,9 @@ license = { text = "MIT" }
 keywords = ["youtube", "search", "scraper", "metadata"]
 requires-python = ">=3.8"
 
+[[project.authors]]
+name = "geethudinoyt"
+
 [project.urls]
 Homepage = "https://github.com/pgboyahpgr-commits/ytapis"
 Repository = "https://github.com/pgboyahpgr-commits/ytapis"

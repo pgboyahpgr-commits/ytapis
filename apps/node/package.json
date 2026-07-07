@@ -2,6 +2,7 @@
   "name": "ytapis-electron",
   "version": "1.0.0",
   "description": "YouTube Search Desktop App powered by ytapis-core",
+  "author": "geethudinoyt",
   "main": "main.js",
   "private": true,
   "scripts": {

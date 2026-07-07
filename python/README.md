@@ -1,17 +1,19 @@
-# ytapi — Python
+# ytapis &mdash; Python
 
-Search YouTube and get video metadata. No API key required.
+Search YouTube and get video metadata &mdash; **no API key required**.
+
+Part of the [ytapis](https://github.com/pgboyahpgr-commits/ytapis) monorepo. Built and managed by [geethudinoyt](https://github.com/geethudinoyt).
 
 ## Install
 
 ```bash
-pip install ytapi
+pip install ytapis
 ```
 
 ## Usage
 
 ```python
-from ytapi import search
+from ytapis import search
 
 results = search("cats", limit=5)
 for v in results:
@@ -21,5 +23,15 @@ for v in results:
 ### CLI
 
 ```bash
-ytapi search cats --limit 5
+ytapis search cats --limit 5
 ```
+
+## API
+
+### `search(query, limit=15)`
+
+Returns `list[dict]` with keys: `id`, `title`, `author`, `thumbnail`, `fullUrl`, `embedUrl`.
+
+## License
+
+MIT

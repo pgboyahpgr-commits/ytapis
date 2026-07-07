@@ -1,6 +1,14 @@
-# ytapis — Dart
+# ytapis &mdash; Dart
 
-Search YouTube and get video metadata. No API key required.
+Search YouTube and get video metadata &mdash; **no API key required**.
+
+Part of the [ytapis](https://github.com/pgboyahpgr-commits/ytapis) monorepo. Built and managed by [geethudinoyt](https://github.com/geethudinoyt).
+
+## Install
+
+```bash
+dart pub add ytapis
+```
 
 ## Usage
 
@@ -18,3 +26,7 @@ void main() async {
 ```bash
 dart run bin/ytapis.dart search cats --limit 5
 ```
+
+## License
+
+MIT

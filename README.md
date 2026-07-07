@@ -1,24 +1,27 @@
 # ytapis
 
-Search YouTube and get video metadata ??? **no API key required**.
+> Search YouTube and get video metadata &mdash; **no API key required**.
 
-**What you get:** Video ID, title, author, thumbnail, and URLs ??? from any search query.
+ytapis is a multi-platform toolkit that scrapes YouTube search results and enriches them via the oEmbed API. No Google API key, no OAuth, no sign-up needed.
+
+Built and managed by [geethudinoyt](https://github.com/geethudinoyt).
+
+---
 
 ## Packages
 
-| Platform | Package | Install | Usage |
-|----------|---------|---------|-------|
-| **TypeScript** | `ytapis-core` | `npm i ytapis-core` | `search("cats")` |
-| **CLI** | `ytapis-cli` | `npx ytapis search cats` | Terminal |
-| **MCP Server** | `ytapis-mcp` | `npx ytapis-mcp` | AI assistants |
-| **Python** | `ytapis` | `pip install ytapis` | `from ytapis import search` |
-| **Go** | `github.com/pgboyahpgr-commits/ytapis/go` | `go get` | `ytapi.Search("cats")` |
-| **Dart** | `ytapis` | `dart pub add ytapis` | `search("cats")` |
+| Platform | Package | Registry | Install |
+|----------|---------|----------|---------|
+| **TypeScript** | `ytapis-core` | [npm](https://www.npmjs.com/package/ytapis-core) | `npm i ytapis-core` |
+| **CLI** | `ytapis-cli` | [npm](https://www.npmjs.com/package/ytapis-cli) | `npx ytapis search cats` |
+| **MCP Server** | `ytapis-mcp` | [npm](https://www.npmjs.com/package/ytapis-mcp) | `npx ytapis-mcp` |
+| **Python** | `ytapis` | [PyPI](https://pypi.org/project/ytapis/) | `pip install ytapis` |
+| **Go** | `ytapis/go` | Go module | `import "github.com/pgboyahpgr-commits/ytapis/go"` |
+| **Dart** | `ytapis` | [pub.dev](https://pub.dev/packages/ytapis) | `dart pub add ytapis` |
 
-## Quick examples
+## Quick Start
 
 ### TypeScript
-
 ```ts
 import { search } from 'ytapis-core'
 const videos = await search('cats', { limit: 5 })
@@ -26,7 +29,6 @@ console.log(videos[0].title, videos[0].author)
 ```
 
 ### Python
-
 ```py
 from ytapis import search
 results = search("cats", limit=5)
@@ -35,56 +37,117 @@ for v in results:
 ```
 
 ### Go
-
 ```go
 import "github.com/pgboyahpgr-commits/ytapis/go"
 results, _ := ytapi.Search("cats", 5)
 ```
 
 ### Dart
-
 ```dart
 import 'package:ytapis/ytapis.dart';
 final results = await search('cats', limit: 5);
 ```
 
 ### CLI
-
 ```bash
+npx ytapis search cats --limit 5
+# or if installed globally:
 ytapis search cats --limit 5
 ```
 
-### API Demo (Cloudflare Worker)
+### MCP Server (AI Assistants)
+```bash
+npx ytapis-mcp
+# Configure in Claude Desktop / Cline / Continue etc.
+```
+
+---
+
+## API Demo (Cloudflare Worker)
 
 ```
 https://ytapis.djalokyt27.workers.dev/?q=cats&limit=5
 ```
 
-## Mini UI Apps
-
-| App | Description |
-|-----|-------------|
-| [Search UI](/apps/search/) | Search YouTube and browse results as cards |
-| [Video Info](/apps/video-info/) | Look up video metadata and preview via embed |
-| [Apps Home](/apps/) | Landing page linking all mini apps |
-
-## How it works
-
-1. Searches YouTube using standard `youtube.com/results?search_query=...`
-2. Extracts video IDs from the page
-3. Fetches metadata via YouTube's official oEmbed API
+---
 
 ## Desktop Apps
 
-Native Windows GUI apps using the ytapis packages directly.
+Native Windows GUI apps that use the ytapis packages directly &mdash; no web server required.
 
-| App | Directory | Framework | Run from source | Build .exe |
-|-----|-----------|-----------|----------------|------------|
-| **Python** | `apps/python/` | tkinter | `pip install -r requirements.txt && python app.py` | `build.bat` (11 MB) |
-| **Node.js** | `apps/node/` | Electron | `npm install && npm start` | `build.bat` (71 MB) |
-| **Flutter** | `apps/flutter/` | Flutter Desktop | `flutter pub get && flutter run` | `build.bat` (25 MB) |
+| App | Directory | Framework | Package | Size |
+|-----|-----------|-----------|---------|------|
+| **Python** | [`apps/python/`](apps/python/) | tkinter | `ytapis` (PyPI) | 11 MB |
+| **Node.js** | [`apps/node/`](apps/node/) | Electron | `ytapis-core` (npm) | 188 MB |
+| **Flutter** | [`apps/flutter/`](apps/flutter/) | Flutter Desktop | `ytapis` (pub.dev) | 80 KB + DLLs |
+
+### Run from source
+
+```bash
+# Python
+cd apps/python
+pip install -r requirements.txt
+python app.py
+
+# Node.js (Electron)
+cd apps/node
+npm install
+npm start
+
+# Flutter
+cd apps/flutter
+flutter pub get
+flutter run
+```
+
+### Build standalone .exe
+
+```bash
+# Each app has a build.bat
+cd apps/python && build.bat
+cd apps/node   && build.bat
+cd apps/flutter && flutter build windows
+```
+
+### Downloads
+
+Pre-built `.exe` files are available on the [Releases](https://github.com/pgboyahpgr-commits/ytapis/releases) page.
+
+---
+
+## Repository Structure
+
+```
+ytapis/
+├── packages/
+│   ├── core/          # ytapis-core — TypeScript library (npm)
+│   ├── cli/           # ytapis-cli — CLI tool (npm)
+│   ├── mcp/           # ytapis-mcp — MCP server for AI (npm)
+│   └── worker/        # Cloudflare Worker — API demo
+├── python/            # ytapis — Python library (PyPI)
+├── dart/              # ytapis — Dart library (pub.dev)
+├── go/                # ytapis/go — Go library
+├── apps/
+│   ├── python/        # Python tkinter desktop app
+│   ├── node/          # Electron desktop app
+│   └── flutter/       # Flutter desktop app
+└── .github/workflows/ # CI/CD publishing pipelines
+```
+
+---
+
+## How It Works
+
+1. **Search** &mdash; Fetches `youtube.com/results?search_query=...` and extracts video IDs via regex
+2. **Enrich** &mdash; Calls YouTube's oEmbed API (`youtube.com/oembed`) for each video to get title, author, thumbnail
+3. **Return** &mdash; Returns structured results with `id`, `title`, `author`, `thumbnail`, `fullUrl`, `embedUrl`
+
+No authentication, no API keys, no rate limits from Google &mdash; just publicly available YouTube data.
+
+---
 
 ## License
 
-MIT
+MIT &mdash; see [LICENSE](LICENSE).
 
+Built and managed by [geethudinoyt](https://github.com/geethudinoyt).

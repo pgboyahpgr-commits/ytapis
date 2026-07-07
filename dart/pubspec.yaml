@@ -2,6 +2,7 @@ name: ytapis
 version: 1.0.0
 description: Search YouTube and get video metadata — no API key required
 repository: https://github.com/pgboyahpgr-commits/ytapis
+author: geethudinoyt
 license: MIT
 environment:
   sdk: '>=3.0.0 <4.0.0'
