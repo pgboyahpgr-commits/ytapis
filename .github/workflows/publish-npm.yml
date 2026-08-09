@@ -18,12 +18,33 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: npm ci
       - run: npm run build
-      - run: npm publish -w packages/core
+      - name: Publish core
+        run: |
+          VER=$(jq -r '.version' packages/core/package.json)
+          if npm view "ytapis-core@$VER" > /dev/null 2>&1; then
+            echo "ytapis-core@$VER already published, skipping"
+          else
+            npm publish -w packages/core
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm publish -w packages/cli
+      - name: Publish cli
+        run: |
+          VER=$(jq -r '.version' packages/cli/package.json)
+          if npm view "ytapis-cli@$VER" > /dev/null 2>&1; then
+            echo "ytapis-cli@$VER already published, skipping"
+          else
+            npm publish -w packages/cli
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: npm publish -w packages/mcp
+      - name: Publish mcp
+        run: |
+          VER=$(jq -r '.version' packages/mcp/package.json)
+          if npm view "ytapis-mcp@$VER" > /dev/null 2>&1; then
+            echo "ytapis-mcp@$VER already published, skipping"
+          else
+            npm publish -w packages/mcp
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

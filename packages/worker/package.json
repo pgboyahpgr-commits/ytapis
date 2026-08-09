@@ -1,15 +1,16 @@
 {
     "name":  "ytapis-worker",
-    "version":  "1.0.0",
+    "version":  "2.0.0",
     "description":  "Cloudflare Worker for YouTube search ??? demo API",
-    "author":  "geethudinoyt",
+    "author":  "geethudino (Ruthvik)",
     "private":  true,
     "scripts":  {
+                    "build":  "npx tsc --noEmit",
                     "dev":  "wrangler dev",
                     "deploy":  "wrangler deploy"
                 },
     "dependencies":  {
-                         "ytapis-core":  "^1.0.0"
+                         "ytapis-core":  "^2.0.0"
                      },
     "devDependencies":  {
                             "@cloudflare/workers-types":  "^4.20250201.0",

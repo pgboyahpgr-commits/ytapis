@@ -2,7 +2,7 @@
 
 Native Windows GUI app for searching YouTube with embedded video playback. Built with Electron using the `ytapis-core` npm package.
 
-Built and managed by [geethudinoyt](https://github.com/geethudinoyt).
+Built and managed by [geethudinoyt](https://github.com/geethudinoyt) and [geethudino (Ruthvik)](https://github.com/geethudino).
 
 ## Features
 

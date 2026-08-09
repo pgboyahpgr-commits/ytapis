@@ -1,0 +1,16 @@
+{
+  "name": "ytapis — YouTube Search",
+  "short_name": "ytapis",
+  "description": "Search YouTube videos — no API key required",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#0f0f0f",
+  "icons": [
+    {
+      "src": "https://ytapis.djalokyt27.workers.dev/favicon.ico",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 Native Windows GUI app for searching YouTube. Built with Flutter Desktop using the `ytapis` pub.dev package.
 
-Built and managed by [geethudinoyt](https://github.com/geethudinoyt).
+Built and managed by [geethudinoyt](https://github.com/geethudinoyt) and [geethudino (Ruthvik)](https://github.com/geethudino).
 
 ## Features
 

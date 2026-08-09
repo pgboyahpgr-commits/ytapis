@@ -1,0 +1,40 @@
+{
+  "results": [],
+  "apiKey": "AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8",
+  "context": {
+    "client": {
+      "hl": "en-GB",
+      "gl": "IN",
+      "remoteHost": "49.204.24.221",
+      "deviceMake": "",
+      "deviceModel": "",
+      "visitorData": "CgtzdmdoQnlLZXc1cyjkhOPTBjIKCgJJThIEGgAgVWLfAgrcAjIwLllUPWFnVzVNVFh6UDcySXEzRkZOem83YkxzY0JKM09LSTlwb1ZSR05yYzVKOEhJWkwzakdWSDdmcUk4MURIUWtkb1NwMndHdVJ3cUlrVHppUzVpeFk2MTAwNXhwX3pFQUhNZGlnampsandaa0lvVm9UUkNlRDRBZmRxQXNRRWJGOTRXd0c3cl9PaXBFZ3pqOVVYeS13aW1BVTdwenhCS3o4clpkUFNhcWdNekpjeS1fMnJnYWc5RzFVSGlaczV1N25ZWndfa3BibTlQZnM5MzdkN2p3YXVrQW5yMEYxbkUxSko1WlZYZ0RiLXlXU1Z6cUlvSTlIOFJ2dzVpc1BoVEJOOGZqWldiZmZNSTJxcTVNckliS296blczOTR6NXhCak0xWG5seUhhNzRfV1d2Wmo3bjJtd0lldTZoRThHWno4MlJRX3dMTzBjMlZMbzRHS0F4Z0EyVExKdw%3D%3D",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36,gzip(gfe)",
+      "clientName": "WEB",
+      "clientVersion": "2.20260807.00.00",
+      "osName": "Windows",
+      "osVersion": "10.0",
+      "originalUrl": "https://www.youtube.com/feed/trending",
+      "platform": "DESKTOP",
+      "clientFormFactor": "UNKNOWN_FORM_FACTOR",
+      "configInfo": {
+        "appInstallData": "COSE49MGEIHNzhwQ3rzOHBDi1K4FEKSh0hwQ0r3QHBDBj9AcEOKHuCIQyvuAExDxtNAcEOfr0RwQvKTQHBDNiLgiENmF0BwQgo_PHBDL0bEFEJ2GuCIQvZmwBRC3-IATEKWO0hwQi_fPHBDM364FEK2R0hwQ4LfRHBDG_IATEL6KsAUQyfaAExCG4YATEK7WzxwQ2vfOHBC3hs8cEL22rgUQtMHQHBAAEPDe0RwQn8-AExDpqdEcELnw0RwQg4e4IhCZjbEFEKH40BwQ9quwBRDN0bEFEIiQ0RwQndCwBRC45M4cEMOR0BwQ6fjRHBD9i9IcEKSp0RwQ14vRHBCWh9EcEImwzhwQ_LLOHBCmmrAFEIeszhwQs5DPHBDH99EcEODNsQUQ9vfRHBC-hNEcEJqf0hwQieiuBRDKk9IcEJjUgBMQsp3_EhCLh9IcEMTs0RwQ9enRHCqUAUNBTVNhUlZpLVpxLURMaVVFcFFDbkE3NUZYYWdCdUFXak5BUDB3M1lCdVFHMXdJTWlRYkFCcTJ6M3d2d3NSS0hUREtnckFRRGtLNEQteWEyNUFhRkZQdWdCT2tUbmt1Q0tNelNBTXRLdkpNRTNaZ0d4OFlGaUZ6WjFRWDJBeExWSWVWR2czYkt2LUFlMndZZEJ3PT0wAA%3D%3D"
+      },
+      "userInterfaceTheme": "USER_INTERFACE_THEME_LIGHT",
+      "browserName": "Chrome",
+      "browserVersion": "125.0.0.0",
+      "acceptHeader": "*/*",
+      "deviceExperimentId": "ChxOelkzTWpBNU5UY3dNakE0T0Rrek5qUXlNdz09EOSE49MGGOSE49MG",
+      "rolloutToken": "CIah6ebzxqnGIRDt_tWhkpSWAxjt_tWhkpSWAw%3D%3D"
+    },
+    "user": {
+      "lockedSafetyMode": false
+    },
+    "request": {
+      "useSsl": true
+    },
+    "clickTracking": {
+      "clickTrackingParams": "IhMIuO3VoZKUlgMVA3SdCR2LCAJE"
+    }
+  }
+}

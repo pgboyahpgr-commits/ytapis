@@ -1,8 +1,6 @@
 name: Publish to GitHub Packages
 
 on:
-  push:
-    branches: [master]
   release:
     types: [published]
 
@@ -18,11 +16,16 @@ jobs:
         with:
           node-version: 22
           registry-url: https://npm.pkg.github.com
-      - run: npm install
+      - run: npm ci
       - run: npm run build
       - name: Publish core to GitHub Packages
         run: |
           cd packages/core
+          VER=$(jq -r '.version' package.json)
+          if npm view "@pgboyahpgr-commits/ytapis-core@$VER" > /dev/null 2>&1; then
+            echo "@pgboyahpgr-commits/ytapis-core@$VER already published, skipping"
+            exit 0
+          fi
           jq '.name = "@pgboyahpgr-commits/ytapis-core" | .publishConfig = {"registry": "https://npm.pkg.github.com/"}' package.json > tmp.json
           mv tmp.json package.json
           npm publish
@@ -31,6 +34,11 @@ jobs:
       - name: Publish cli to GitHub Packages
         run: |
           cd packages/cli
+          VER=$(jq -r '.version' package.json)
+          if npm view "@pgboyahpgr-commits/ytapis-cli@$VER" > /dev/null 2>&1; then
+            echo "@pgboyahpgr-commits/ytapis-cli@$VER already published, skipping"
+            exit 0
+          fi
           jq '.name = "@pgboyahpgr-commits/ytapis-cli" | .publishConfig = {"registry": "https://npm.pkg.github.com/"}' package.json > tmp.json
           mv tmp.json package.json
           npm publish
@@ -39,6 +47,11 @@ jobs:
       - name: Publish mcp to GitHub Packages
         run: |
           cd packages/mcp
+          VER=$(jq -r '.version' package.json)
+          if npm view "@pgboyahpgr-commits/ytapis-mcp@$VER" > /dev/null 2>&1; then
+            echo "@pgboyahpgr-commits/ytapis-mcp@$VER already published, skipping"
+            exit 0
+          fi
           jq '.name = "@pgboyahpgr-commits/ytapis-mcp" | .publishConfig = {"registry": "https://npm.pkg.github.com/"}' package.json > tmp.json
           mv tmp.json package.json
           npm publish

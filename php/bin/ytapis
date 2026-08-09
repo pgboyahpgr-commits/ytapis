@@ -1,0 +1,138 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use GeethuDino\Ytapis\Ytapis;
+
+const VERSION = '1.0.0';
+
+function showHelp(): void
+{
+    $help = <<<HELP
+ytapis v{VERSION}
+  YouTube search engine — no API key required.
+
+Usage:
+  ytapis search <query> [--limit N]
+  ytapis trending [--limit N]
+  ytapis channel <id> [--limit N]
+  ytapis playlist <id> [--limit N]
+  ytapis video <id>
+  ytapis --version | -v
+  ytapis --help | -h
+
+Options:
+  --limit, -l  <N>   Max results (default 15)
+
+HELP;
+    fwrite(STDERR, str_replace('{VERSION}', VERSION, $help));
+}
+
+function parseArgsWithLimit(array $args, int $startIndex): array
+{
+    $queryParts = [];
+    $limit = 15;
+
+    for ($i = $startIndex; $i < count($args); $i++) {
+        if (($args[$i] === '--limit' || $args[$i] === '-l') && isset($args[$i + 1])) {
+            $n = (int) $args[$i + 1];
+            $limit = max(1, $n);
+            $i++;
+        } elseif ($args[$i] === '--version' || $args[$i] === '-v') {
+            echo "ytapis v" . VERSION . "\n";
+            exit(0);
+        } elseif ($args[$i] === '--help' || $args[$i] === '-h') {
+            showHelp();
+            exit(0);
+        } elseif (!str_starts_with($args[$i], '-')) {
+            $queryParts[] = $args[$i];
+        }
+    }
+
+    return [$queryParts, $limit];
+}
+
+function mapResults(array $results): array
+{
+    return array_map(fn($r) => $r->toArray(), $results);
+}
+
+// ── Entry point ──────────────────────────────────────────────────────────────
+
+if ($argc < 2) {
+    showHelp();
+    exit(1);
+}
+
+$cmd = $argv[1];
+
+if ($cmd === '--version' || $cmd === '-v') {
+    echo "ytapis v" . VERSION . "\n";
+    exit(0);
+}
+
+if ($cmd === '--help' || $cmd === '-h') {
+    showHelp();
+    exit(0);
+}
+
+try {
+    switch ($cmd) {
+        case 'search':
+            [$queryParts, $limit] = parseArgsWithLimit($argv, 2);
+            if (empty($queryParts)) {
+                fwrite(STDERR, "Error: search query required\n");
+                exit(1);
+            }
+            $response = Ytapis::search(implode(' ', $queryParts), $limit);
+            echo json_encode(mapResults($response['results']), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+            break;
+
+        case 'trending':
+            [$_, $limit] = parseArgsWithLimit($argv, 2);
+            $response = Ytapis::searchTrending($limit);
+            echo json_encode(mapResults($response['results']), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+            break;
+
+        case 'channel':
+            [$queryParts, $limit] = parseArgsWithLimit($argv, 2);
+            if (empty($queryParts)) {
+                fwrite(STDERR, "Error: channel ID required\n");
+                exit(1);
+            }
+            $response = Ytapis::searchChannel($queryParts[0], $limit);
+            echo json_encode(mapResults($response['results']), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+            break;
+
+        case 'playlist':
+            [$queryParts, $limit] = parseArgsWithLimit($argv, 2);
+            if (empty($queryParts)) {
+                fwrite(STDERR, "Error: playlist ID required\n");
+                exit(1);
+            }
+            $response = Ytapis::searchPlaylist($queryParts[0], $limit);
+            echo json_encode(mapResults($response['results']), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+            break;
+
+        case 'video':
+            [$queryParts, $_] = parseArgsWithLimit($argv, 2);
+            if (empty($queryParts)) {
+                fwrite(STDERR, "Error: video ID required\n");
+                exit(1);
+            }
+            $result = Ytapis::getVideo($queryParts[0]);
+            echo json_encode($result->toArray(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+            break;
+
+        default:
+            fwrite(STDERR, "Unknown command: {$cmd}\n");
+            showHelp();
+            exit(1);
+    }
+} catch (Throwable $e) {
+    fwrite(STDERR, "Error: " . $e->getMessage() . "\n");
+    exit(1);
+}

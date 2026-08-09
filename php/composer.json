@@ -1,0 +1,29 @@
+{
+    "name": "geethudinoyt/ytapis",
+    "description": "YouTube search engine for PHP – extract rich video metadata via ytInitialData parsing with oEmbed fallback, plus InnerTube pagination.",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "GeethuDino\\Ytapis\\": "src/"
+        }
+    },
+    "keywords": [
+        "youtube",
+        "search",
+        "video",
+        "metadata",
+        "scraper",
+        "innertube"
+    ],
+    "authors": [
+        {
+            "name": "geethudino (Ruthvik)"
+        }
+    ]
+}

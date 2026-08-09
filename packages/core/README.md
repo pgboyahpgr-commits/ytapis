@@ -2,7 +2,7 @@
 
 TypeScript library to search YouTube and get video metadata &mdash; **no API key required**.
 
-Part of the [ytapis](https://github.com/pgboyahpgr-commits/ytapis) monorepo. Built and managed by [geethudinoyt](https://github.com/geethudinoyt).
+Part of the [ytapis](https://github.com/pgboyahpgr-commits/ytapis) monorepo. Built and managed by [geethudinoyt](https://github.com/geethudinoyt) and [geethudino (Ruthvik)](https://github.com/geethudino).
 
 ## Install
 

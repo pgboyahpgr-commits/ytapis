@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ytapis Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background: #0f0f0f;
+  color: #e0e0e0;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+.header {
+  background: #272727;
+  border-bottom: 1px solid #333;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.header h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+.header h1 span { color: #3ea6ff; }
+.filter-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  color: #aaa;
+  padding: 7px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all .2s;
+}
+.filter-btn:hover { border-color: #3ea6ff; color: #fff; }
+.filter-btn.active {
+  background: #3ea6ff;
+  color: #0f0f0f;
+  border-color: #3ea6ff;
+  font-weight: 600;
+}
+.container { max-width: 1280px; margin: 0 auto; padding: 24px; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: #272727;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.stat-card .label { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: .5px; }
+.stat-card .value { font-size: 32px; font-weight: 700; color: #fff; }
+.stat-card .sub { font-size: 12px; color: #4caf50; }
+.charts-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.chart-box {
+  background: #272727;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+}
+.chart-box h3 { font-size: 14px; color: #aaa; margin-bottom: 12px; font-weight: 500; }
+.chart-box canvas { max-height: 280px; width: 100% !important; }
+.table-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.table-box {
+  background: #272727;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+}
+.table-box h3 { font-size: 14px; color: #aaa; margin-bottom: 12px; font-weight: 500; }
+.table-wrap { max-height: 340px; overflow-y: auto; }
+.table-wrap::-webkit-scrollbar { width: 6px; }
+.table-wrap::-webkit-scrollbar-track { background: #1a1a1a; border-radius: 3px; }
+.table-wrap::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; padding: 10px 12px; color: #888; font-weight: 500; border-bottom: 1px solid #333; position: sticky; top: 0; background: #272727; }
+td { padding: 10px 12px; border-bottom: 1px solid #1f1f1f; color: #ccc; }
+tr:hover td { background: rgba(62,166,255,.05); }
+.query-badge {
+  background: rgba(62,166,255,.15);
+  color: #3ea6ff;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.platform-badge {
+  background: rgba(76,175,80,.15);
+  color: #4caf50;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.video-cell { display: flex; align-items: center; gap: 10px; }
+.video-cell img { width: 48px; height: 27px; border-radius: 4px; object-fit: cover; background: #1a1a1a; }
+.video-cell .v-info { display: flex; flex-direction: column; gap: 2px; }
+.video-cell .v-title { color: #fff; font-size: 13px; }
+.video-cell .v-title a { color: #fff; text-decoration: none; }
+.video-cell .v-title a:hover { color: #3ea6ff; }
+.video-cell .v-channel { color: #888; font-size: 11px; }
+.views { color: #aaa; font-size: 12px; }
+.footer-note {
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  padding: 20px;
+  border-top: 1px solid #222;
+  margin-top: 24px;
+}
+.footer-note code { background: #1a1a1a; padding: 2px 8px; border-radius: 4px; font-size: 12px; color: #3ea6ff; }
+@media (max-width: 1024px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .charts-grid { grid-template-columns: 1fr; }
+  .table-section { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .header { flex-direction: column; align-items: flex-start; }
+  .stat-card .value { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <h1><span>ytapis</span> Dashboard</h1>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="setRange('today', this)">Today</button>
+    <button class="filter-btn" onclick="setRange('week', this)">This Week</button>
+    <button class="filter-btn" onclick="setRange('month', this)">This Month</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="label">Total Searches</div>
+      <div class="value" id="stat-searches">--</div>
+      <div class="sub" id="stat-searches-sub"></div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Trending Videos</div>
+      <div class="value" id="stat-trending">--</div>
+      <div class="sub" id="stat-trending-sub"></div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Channels Tracked</div>
+      <div class="value" id="stat-channels">--</div>
+      <div class="sub" id="stat-channels-sub"></div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Comments Fetched</div>
+      <div class="value" id="stat-comments">--</div>
+      <div class="sub" id="stat-comments-sub"></div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-box">
+      <h3>Searches Over Time</h3>
+      <canvas id="searchesChart"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>Top 10 Queries</h3>
+      <canvas id="queriesChart"></canvas>
+    </div>
+    <div class="chart-box">
+      <h3>Platform Usage</h3>
+      <canvas id="platformChart"></canvas>
+    </div>
+  </div>
+
+  <div class="table-section">
+    <div class="table-box">
+      <h3>Recent Searches</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Query</th><th>Platform</th><th>Time</th></tr></thead>
+          <tbody id="recent-searches-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="table-box">
+      <h3>Top Videos</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Video</th><th>Views</th></tr></thead>
+          <tbody id="top-videos-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Connect a real analytics backend by <code>POST</code>ing search events to your API
+    &mdash; endpoint: <code>POST /api/event</code> with <code>{"query":"...","platform":"..."}</code>
+  </div>
+
+</div>
+
+<script>
+const colors = { primary: '#3ea6ff', grid: '#333', text: '#888' };
+
+const queryPool = [
+  'minecraft lets play', 'music videos', 'how to cook pasta', 'javascript tutorial',
+  'cat videos', 'python crash course', 'fortnite highlights', 'tech reviews 2026',
+  'guitar lessons', 'travel vlog', 'react vs vue', 'docker explained',
+  'workout routine', 'meditation music', 'cooking recipes', 'gaming setup tour',
+  'ai news', 'space documentary', 'podcast highlights', 'linux tips',
+  'unboxing new phone', 'diy crafts', 'top 10 movies', 'roblox funny moments',
+];
+
+const platformPool = ['node', 'python', 'go', 'rust', 'php', 'dart', 'swift', 'kotlin'];
+const channelNames = ['PewDiePie', 'MrBeast', 'Markiplier', 'TechLead', 'Fireship', 'Traversy Media', 'ThePrimeagen', 'Kurzgesagt', 'Veritasium', 'MKBHD'];
+
+function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+function pick(arr) { return arr[rand(0, arr.length - 1)]; }
+function ago(minutes) { const d = new Date(Date.now() - minutes * 60000); return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+
+let currentRange = 'today';
+let charts = {};
+
+function getMultiplier() {
+  if (currentRange === 'today') return 1;
+  if (currentRange === 'week') return 7;
+  return 30;
+}
+
+function generateDemoData() {
+  const mult = getMultiplier();
+  const totalSearches = rand(200, 500) * mult;
+  const trending = rand(30, 80) * mult;
+  const channels = rand(10, 30) * mult;
+  const comments = rand(50, 150) * mult;
+
+  const recentSearches = [];
+  for (let i = 0; i < 10; i++) {
+    recentSearches.push({
+      query: pick(queryPool),
+      platform: pick(platformPool),
+      time: ago(rand(2, 1440)),
+    });
+  }
+
+  const topVideos = [
+    { title: 'I Built a Secret Gaming Room', channel: 'MrBeast', views: '142M', thumb: 'https://i.ytimg.com/vi/default/mqdefault.jpg' },
+    { title: 'Day in the Life of a Programmer', channel: 'Fireship', views: '2.1M', thumb: 'https://i.ytimg.com/vi/default/mqdefault.jpg' },
+    { title: 'Ultimate Minecraft Build', channel: 'PewDiePie', views: '89M', thumb: 'https://i.ytimg.com/vi/default/mqdefault.jpg' },
+    { title: 'How Quantum Computers Work', channel: 'Veritasium', views: '5.4M', thumb: 'https://i.ytimg.com/vi/default/mqdefault.jpg' },
+    { title: 'React 19 New Features', channel: 'Traversy Media', views: '1.8M', thumb: 'https://i.ytimg.com/vi/default/mqdefault.jpg' },
+    { title: 'SpaceX Starship Launch', channel: 'Kurzgesagt', views: '23M', thumb: 'https://i.ytimg.com/vi/default/mqdefault.jpg' },
+    { title: 'Top 10 VS Code Extensions', channel: 'ThePrimeagen', views: '950K', thumb: 'https://i.ytimg.com/vi/default/mqdefault.jpg' },
+    { title: 'iPhone 18 Review', channel: 'MKBHD', views: '12M', thumb: 'https://i.ytimg.com/vi/default/mqdefault.jpg' },
+    { title: 'Scary Games Compilation', channel: 'Markiplier', views: '3.2M', thumb: 'https://i.ytimg.com/vi/default/mqdefault.jpg' },
+    { title: 'Tech Layoffs Explained', channel: 'TechLead', views: '780K', thumb: 'https://i.ytimg.com/vi/default/mqdefault.jpg' },
+  ];
+
+  const searchesOverTime = [];
+  const points = 24;
+  for (let i = 0; i < points; i++) {
+    const hour = (23 - i) * mult;
+    searchesOverTime.unshift({ time: `${(23 - i).toString().padStart(2, '0')}:00`, count: rand(5, 80) * mult });
+  }
+
+  const queryCounts = {};
+  for (let i = 0; i < 1000 * mult; i++) {
+    const q = pick(queryPool);
+    queryCounts[q] = (queryCounts[q] || 0) + 1;
+  }
+  const topQueries = Object.entries(queryCounts).sort((a, b) => b[1] - a[1]).slice(0, 10);
+
+  const platformCounts = {};
+  for (let i = 0; i < totalSearches; i++) {
+    const p = pick(platformPool);
+    platformCounts[p] = (platformCounts[p] || 0) + 1;
+  }
+
+  return {
+    stats: { totalSearches, trending, channels, comments },
+    recentSearches,
+    topVideos,
+    searchesOverTime,
+    topQueries,
+    platformCounts,
+  };
+}
+
+function formatNum(n) {
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+  return n.toString();
+}
+
+function updateStats(stats) {
+  document.getElementById('stat-searches').textContent = formatNum(stats.totalSearches);
+  document.getElementById('stat-trending').textContent = formatNum(stats.trending);
+  document.getElementById('stat-channels').textContent = formatNum(stats.channels);
+  document.getElementById('stat-comments').textContent = formatNum(stats.comments);
+  const pct = currentRange === 'today' ? '+12%' : currentRange === 'week' ? '+34%' : '+52%';
+  ['searches', 'trending', 'channels', 'comments'].forEach((id) => {
+    document.getElementById('stat-' + id + '-sub').textContent = pct + ' vs previous period';
+  });
+}
+
+function updateRecentSearches(searches) {
+  const tbody = document.getElementById('recent-searches-body');
+  tbody.innerHTML = searches.map((s) => `<tr>
+    <td><span class="query-badge">${s.query}</span></td>
+    <td><span class="platform-badge">${s.platform}</span></td>
+    <td style="color:#888">${s.time}</td>
+  </tr>`).join('');
+}
+
+function updateTopVideos(videos) {
+  const tbody = document.getElementById('top-videos-body');
+  tbody.innerHTML = videos.map((v) => `<tr>
+    <td>
+      <div class="video-cell">
+        <img src="${v.thumb}" alt="" onerror="this.style.display='none'">
+        <div class="v-info">
+          <div class="v-title"><a href="#">${v.title}</a></div>
+          <div class="v-channel">${v.channel}</div>
+        </div>
+      </div>
+    </td>
+    <td class="views">${v.views}</td>
+  </tr>`).join('');
+}
+
+function destroyCharts() {
+  Object.values(charts).forEach((c) => c.destroy());
+  charts = {};
+}
+
+function renderCharts(data) {
+  destroyCharts();
+
+  const chartFont = { family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" };
+
+  charts.searches = new Chart(document.getElementById('searchesChart'), {
+    type: 'line',
+    data: {
+      labels: data.searchesOverTime.map((s) => s.time),
+      datasets: [{
+        label: 'Searches',
+        data: data.searchesOverTime.map((s) => s.count),
+        borderColor: '#3ea6ff',
+        backgroundColor: 'rgba(62,166,255,0.08)',
+        fill: true,
+        tension: 0.4,
+        pointRadius: 0,
+        pointHitRadius: 10,
+        borderWidth: 2,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#888', font: chartFont, maxTicksLimit: 8 }, grid: { color: '#222' } },
+        y: { ticks: { color: '#888', font: chartFont }, grid: { color: '#222' }, beginAtZero: true },
+      },
+    },
+  });
+
+  charts.queries = new Chart(document.getElementById('queriesChart'), {
+    type: 'bar',
+    data: {
+      labels: data.topQueries.map((q) => q[0].length > 14 ? q[0].slice(0, 14) + '…' : q[0]),
+      datasets: [{
+        label: 'Searches',
+        data: data.topQueries.map((q) => q[1]),
+        backgroundColor: '#3ea6ff',
+        borderRadius: 4,
+        borderSkipped: false,
+      }],
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: '#888', font: chartFont }, grid: { color: '#222' } },
+        y: { ticks: { color: '#ccc', font: { ...chartFont, size: 11 } }, grid: { display: false } },
+      },
+    },
+  });
+
+  const platformLabels = Object.keys(data.platformCounts);
+  const platformValues = Object.values(data.platformCounts);
+  const pieColors = ['#3ea6ff', '#4caf50', '#ff9800', '#f44336', '#9c27b0', '#00bcd4', '#ffeb3b', '#795548'];
+
+  charts.platform = new Chart(document.getElementById('platformChart'), {
+    type: 'doughnut',
+    data: {
+      labels: platformLabels,
+      datasets: [{
+        data: platformValues,
+        backgroundColor: pieColors.slice(0, platformLabels.length),
+        borderColor: '#272727',
+        borderWidth: 2,
+      }],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: { color: '#ccc', font: { ...chartFont, size: 11 }, padding: 16, usePointStyle: true, pointStyleWidth: 8 },
+        },
+      },
+    },
+  });
+}
+
+function loadDashboard() {
+  const data = generateDemoData();
+  updateStats(data.stats);
+  updateRecentSearches(data.recentSearches);
+  updateTopVideos(data.topVideos);
+  renderCharts(data);
+}
+
+function setRange(range, btn) {
+  document.querySelectorAll('.filter-btn').forEach((b) => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentRange = range;
+  loadDashboard();
+}
+
+loadDashboard();
+</script>
+</body>
+</html>

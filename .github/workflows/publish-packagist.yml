@@ -1,0 +1,23 @@
+name: Publish Packagist
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Notify Packagist
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+
+          # Packagist auto-discovers packages from their GitHub URL when
+          # the repo has a composer.json at the root. Since ours is in php/,
+          # the user should configure a package URL pointing to the subdirectory.
+          #
+          # This workflow simply validates the package structure.
+          cd php
+          composer validate --strict
+          echo "Tag ${TAG} ready. Packagist should auto-update via webhook."

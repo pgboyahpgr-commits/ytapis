@@ -1,14 +1,23 @@
 {
   "name": "ytapis-monorepo",
   "private": true,
+  "author": "geethudinoyt & geethudino (Ruthvik)",
   "workspaces": [
     "packages/core",
     "packages/cli",
     "packages/worker",
-    "packages/mcp"
+    "packages/mcp",
+    "packages/server",
+    "packages/create"
   ],
   "scripts": {
     "build": "npm run build -w packages/core && npm run build -w packages/cli -w packages/mcp",
-    "test": "npm run test -w packages/core"
+    "test": "npm run test -w packages/core",
+    "snapshots": "node --import tsx scripts/save-snapshots.ts",
+    "lint": "npx tsc --noEmit -p packages/core/tsconfig.json",
+    "bench": "npm run build -w packages/core && node --import tsx scripts/benchmark.ts",
+    "bench:py": "python scripts/benchmark.py",
+    "bench:go": "cd go && go run ./cmd/benchmark/",
+    "dashboard": "node dashboard/server.js"
   }
 }

@@ -1,0 +1,12 @@
+D:\Games\plugins\ytapis\csharp\bin\Debug\net8.0\ytapis.deps.json
+D:\Games\plugins\ytapis\csharp\bin\Debug\net8.0\ytapis.dll
+D:\Games\plugins\ytapis\csharp\bin\Debug\net8.0\ytapis.pdb
+D:\Games\plugins\ytapis\csharp\obj\Debug\net8.0\ytapis.GeneratedMSBuildEditorConfig.editorconfig
+D:\Games\plugins\ytapis\csharp\obj\Debug\net8.0\ytapis.AssemblyInfoInputs.cache
+D:\Games\plugins\ytapis\csharp\obj\Debug\net8.0\ytapis.AssemblyInfo.cs
+D:\Games\plugins\ytapis\csharp\obj\Debug\net8.0\ytapis.csproj.CoreCompileInputs.cache
+D:\Games\plugins\ytapis\csharp\obj\Debug\net8.0\ytapis.sourcelink.json
+D:\Games\plugins\ytapis\csharp\obj\Debug\net8.0\ytapis.dll
+D:\Games\plugins\ytapis\csharp\obj\Debug\net8.0\refint\ytapis.dll
+D:\Games\plugins\ytapis\csharp\obj\Debug\net8.0\ytapis.pdb
+D:\Games\plugins\ytapis\csharp\obj\Debug\net8.0\ref\ytapis.dll

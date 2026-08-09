@@ -1,0 +1,16 @@
+node_modules/
+.git/
+apps/
+python/
+go/
+dart/
+csharp/
+php/
+kotlin/
+rust/
+swift/
+cpp/
+*.test.*
+*.spec.*
+**/__tests__/
+dist/

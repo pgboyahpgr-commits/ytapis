@@ -1,0 +1,26 @@
+{
+    "name":  "create-ytapis-app",
+    "version":  "2.0.0",
+    "description":  "Scaffold ytapis projects in any language",
+    "author":  "geethudino (Ruthvik)",
+    "license":  "MIT",
+    "bin":  {
+                "create-ytapis-app":  "dist/index.js"
+            },
+    "files":  [
+                  "dist"
+              ],
+    "scripts":  {
+                    "build":  "tsup src/index.ts --format cjs --clean"
+                },
+    "dependencies":  {
+
+                     },
+    "devDependencies":  {
+                            "tsup":  "^8.4.0",
+                            "typescript":  "^5.7.0"
+                        },
+    "engines":  {
+                    "node":  "\u003e=18.0.0"
+                }
+}

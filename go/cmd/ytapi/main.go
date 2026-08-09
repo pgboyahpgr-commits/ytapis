@@ -9,10 +9,18 @@ import (
 	"github.com/pgboyahpgr-commits/ytapis/go"
 )
 
+const version = "1.0.0"
+
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Fprintln(os.Stderr, "Usage: ytapi search <query> [--limit N]")
+		fmt.Fprintln(os.Stderr, "       ytapi --version")
 		os.Exit(1)
+	}
+
+	if os.Args[1] == "--version" || os.Args[1] == "-v" {
+		fmt.Printf("ytapi v%s\n", version)
+		os.Exit(0)
 	}
 
 	if os.Args[1] != "search" {
@@ -49,4 +57,3 @@ func main() {
 	}
 	fmt.Println(result)
 }
-

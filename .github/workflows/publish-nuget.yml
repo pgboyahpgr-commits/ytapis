@@ -1,0 +1,23 @@
+name: Publish NuGet
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0"
+      - name: Pack
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          dotnet pack csharp/ --configuration Release --output ./nupkgs \
+            -p:PackageVersion=${TAG#v}
+      - name: Push to NuGet
+        run: dotnet nuget push ./nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate

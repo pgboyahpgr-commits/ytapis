@@ -2,7 +2,7 @@
 
 Native Windows GUI app for searching YouTube and watching videos. Built with Python tkinter using the `ytapis` PyPI package.
 
-Built and managed by [geethudinoyt](https://github.com/geethudinoyt).
+Built and managed by [geethudinoyt](https://github.com/geethudinoyt) and [geethudino (Ruthvik)](https://github.com/geethudino).
 
 ## Features
 

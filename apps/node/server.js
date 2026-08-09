@@ -21,8 +21,15 @@ function openBrowser(url) {
 }
 
 let indexHtml = '';
-const htmlPath = path.join(__dirname, 'public', 'index.html');
-try { indexHtml = fs.readFileSync(htmlPath, 'utf-8'); } catch (_) {}
+const htmlPath = path.join(__dirname, 'renderer', 'index.html');
+if (!fs.existsSync(htmlPath)) {
+  const altPath = path.join(__dirname, 'public', 'index.html');
+  if (fs.existsSync(altPath)) {
+    indexHtml = fs.readFileSync(altPath, 'utf-8');
+  }
+} else {
+  indexHtml = fs.readFileSync(htmlPath, 'utf-8');
+}
 
 async function main() {
   const port = await getPort();
@@ -46,7 +53,8 @@ async function main() {
         return;
       }
       try {
-        const results = await search(q, { limit });
+        const response = await search(q, { limit });
+        const results = response.results || response;
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(results));
       } catch (err) {

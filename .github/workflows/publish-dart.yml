@@ -1,0 +1,23 @@
+name: Publish Dart
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: "3.0"
+      - name: Publish to pub.dev
+        run: |
+          cd dart
+          dart pub publish --force
+        env:
+          PUB_ACCESS_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}

@@ -1,0 +1,16 @@
+name: Publish Swift
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  validate:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate SPM package
+        run: |
+          cd swift
+          swift build --configuration release
+          echo "SPM package validated. Consumers use git tags for versioning."

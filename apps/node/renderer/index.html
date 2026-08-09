@@ -7,34 +7,55 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
 body{background:#1e1e1e;color:#f1f1f1;min-height:100vh}
-.container{max-width:1000px;margin:0 auto;padding:20px}
+.container{max-width:1200px;margin:0 auto;padding:20px}
 h1{font-size:1.8rem;font-weight:700;background:linear-gradient(135deg,#f9d423,#ff4e50);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:4px}
 .sub{color:#888;font-size:.85rem;text-align:center;margin-bottom:16px}
-.search-row{display:flex;gap:8px;margin-bottom:16px}
+.search-row{display:flex;gap:8px;margin-bottom:8px}
 .search-row input{flex:1;padding:10px 14px;border:1px solid #444;border-radius:8px;background:#2a2a2a;color:#fff;font-size:1rem;outline:none}
 .search-row input:focus{border-color:#3ea6ff}
 .search-row button{padding:10px 24px;background:#3ea6ff;color:#0f0f0f;border:none;border-radius:8px;font-weight:700;font-size:1rem;cursor:pointer}
 .search-row button:hover{background:#65b8ff}
 .search-row button:disabled{opacity:.5;cursor:not-allowed}
+.history-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;min-height:26px}
+.history-row .chip{background:#2a2a2a;color:#888;border:1px solid #3a3a3a;border-radius:16px;padding:3px 12px;font-size:.75rem;cursor:pointer;transition:all .15s}
+.history-row .chip:hover{background:#333;color:#bbb;border-color:#555}
 .status{color:#aaa;font-size:.85rem;margin-bottom:8px;min-height:20px}
-.split{display:flex;gap:16px;height:calc(100vh - 180px)}
-.results-panel{width:380px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+.split{display:flex;gap:16px;height:calc(100vh - 230px)}
+.results-panel{width:420px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.results-panel::-webkit-scrollbar{width:6px}
+.results-panel::-webkit-scrollbar-thumb{background:#444;border-radius:3px}
 .player-panel{flex:1;display:none;flex-direction:column;background:#0a0a0a;border-radius:8px;overflow:hidden}
 .player-panel.show{display:flex}
 .player-panel iframe{width:100%;aspect-ratio:16/9;border:none;background:#000}
 .player-panel .info{padding:12px 14px}
 .player-panel .info h2{font-size:1.1rem;font-weight:600;margin-bottom:2px}
-.player-panel .info .author{color:#888;font-size:.85rem}
+.player-panel .info .author-row{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.player-panel .info .author-row .c-avatar{width:22px;height:22px;border-radius:50%}
+.player-panel .info .p-meta{color:#888;font-size:.8rem;margin-top:2px}
 .player-panel .info .links{display:flex;gap:8px;margin-top:8px}
 .player-panel .info .links a{padding:4px 14px;border-radius:4px;font-size:.8rem;font-weight:600;text-decoration:none}
 .player-panel .info .links .watch-link{background:#ff4d4d;color:#fff}
 .player-panel .info .links .thumb-link{background:#444;color:#ccc}
-.card{background:#2a2a2a;border-radius:8px;padding:10px 12px;cursor:pointer;transition:background .15s;border:2px solid transparent}
+.card{background:#2a2a2a;border-radius:10px;overflow:hidden;cursor:pointer;transition:background .15s;border:2px solid transparent;position:relative}
 .card:hover{background:#333}
 .card.active{border-color:#3ea6ff;background:#2a3a4a}
-.card h3{font-size:.88rem;font-weight:600;color:#f1f1f1;margin-bottom:1px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card .meta{color:#888;font-size:.75rem}
-.card .vid{color:#555;font-size:.7rem}
+.card .thumb-wrap{position:relative;aspect-ratio:16/9;background:#1a1a1a;overflow:hidden}
+.card .thumb-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.card .thumb-wrap .duration-pill{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.8);color:#fff;font-size:.7rem;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:.5px}
+.card .thumb-wrap .live-pill{position:absolute;bottom:6px;right:6px;background:#e04040;color:#fff;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:4px;text-transform:uppercase;animation:pulse 2s infinite}
+.card .thumb-wrap .up-pill{position:absolute;top:6px;left:6px;background:rgba(249,212,35,.9);color:#0f0f0f;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:4px}
+.card .card-body{padding:8px 10px 10px}
+.card .card-body h3{font-size:.85rem;font-weight:600;color:#f1f1f1;margin-bottom:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.3}
+.card .card-body .author-row{display:flex;align-items:center;gap:5px;margin-top:3px}
+.card .card-body .author-row .c-avatar{width:18px;height:18px;border-radius:50%;flex-shrink:0}
+.card .card-body .author-row .author-name{color:#aaa;font-size:.77rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .card-body .author-row .verified{color:#3ea6ff;font-size:.7rem;flex-shrink:0}
+.card .card-body .meta-row{display:flex;gap:8px;color:#666;font-size:.7rem;margin-top:3px}
+.card .card-body .meta-row span{white-space:nowrap}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.load-btn{width:100%;padding:10px;background:#2a2a2a;color:#3ea6ff;border:1px solid #3a3a3a;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;text-align:center;transition:all .15s;margin-top:4px}
+.load-btn:hover{background:#333;border-color:#555;color:#65b8ff}
+.load-btn:disabled{opacity:.5;cursor:not-allowed}
 .spinner{text-align:center;padding:40px;color:#666}
 .spinner::after{content:'';display:inline-block;width:30px;height:30px;border:3px solid #333;border-top-color:#3ea6ff;border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -50,6 +71,7 @@ h1{font-size:1.8rem;font-weight:700;background:linear-gradient(135deg,#f9d423,#f
     <input type="text" id="query" placeholder="Search YouTube..." />
     <button id="searchBtn">Search</button>
   </div>
+  <div class="history-row" id="historyRow"></div>
   <div class="status" id="status">Enter a query to search YouTube</div>
   <div class="split">
     <div class="results-panel" id="results"></div>
@@ -57,7 +79,12 @@ h1{font-size:1.8rem;font-weight:700;background:linear-gradient(135deg,#f9d423,#f
       <iframe id="playerFrame" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       <div class="info">
         <h2 id="videoTitle"></h2>
-        <div class="author" id="videoAuthor"></div>
+        <div class="author-row">
+          <img class="c-avatar" id="playerAvatar" src="" alt="" />
+          <span id="videoAuthor" style="color:#aaa;font-size:.85rem"></span>
+          <span id="playerVerified" style="color:#3ea6ff;font-size:.75rem;display:none">&#10003;</span>
+        </div>
+        <div class="p-meta" id="playerMeta"></div>
         <div class="links">
           <a class="watch-link" id="watchLink" href="#" target="_blank">Watch on YouTube</a>
           <a class="thumb-link" id="thumbLink" href="#" target="_blank">Thumbnail</a>
@@ -77,10 +104,37 @@ const placeholder = document.getElementById('placeholder');
 const playerFrame = document.getElementById('playerFrame');
 const videoTitle = document.getElementById('videoTitle');
 const videoAuthor = document.getElementById('videoAuthor');
+const playerAvatar = document.getElementById('playerAvatar');
+const playerVerified = document.getElementById('playerVerified');
+const playerMeta = document.getElementById('playerMeta');
 const watchLink = document.getElementById('watchLink');
 const thumbLink = document.getElementById('thumbLink');
+const historyRow = document.getElementById('historyRow');
 
 let data = [];
+let continuation = null;
+let apiKey = null;
+let context = null;
+
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem('ytapis_history') || '[]'); } catch { return []; }
+}
+function saveHistory(q) {
+  let h = loadHistory().filter(x => x !== q);
+  h.unshift(q);
+  if (h.length > 10) h = h.slice(0, 10);
+  localStorage.setItem('ytapis_history', JSON.stringify(h));
+  renderHistory();
+}
+function renderHistory() {
+  const h = loadHistory();
+  if (!h.length) { historyRow.innerHTML = ''; return; }
+  historyRow.innerHTML = h.map(q => '<span class="chip" data-q="' + escAttr(q) + '">' + esc(q) + '</span>').join('');
+  historyRow.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => { query.value = chip.dataset.q; doSearch(); });
+  });
+}
+renderHistory();
 
 query.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
 btn.addEventListener('click', doSearch);
@@ -104,18 +158,89 @@ async function doSearch() {
     return;
   }
   data = res.data;
+  continuation = res.continuation || null;
+  apiKey = res.apiKey || null;
+  context = res.context || null;
+  saveHistory(q);
   status.textContent = 'Found ' + data.length + ' results. Click any to play.';
-  results.innerHTML = '';
+  renderResults(true);
+  if (data.length > 0) playVideo(0, results.children[0]);
+}
+
+function renderResults(clear) {
+  if (clear) results.innerHTML = '';
   data.forEach((v, i) => {
     const card = document.createElement('div');
-    card.className = 'card' + (i === 0 ? ' active' : '');
-    card.innerHTML = '<h3>' + esc(v.title || 'Untitled') + '</h3>' +
-      '<div class="meta">' + esc(v.author || 'Unknown') + '</div>' +
-      '<div class="vid">' + v.id + '</div>';
-    card.addEventListener('click', () => playVideo(i, card));
+    card.className = 'card' + (data.length > 0 && i === 0 && clear ? ' active' : '');
+    const thumb = v.thumbnail || 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg';
+    const dur = v.duration || '';
+    const live = v.isLive;
+    const upcoming = v.isUpcoming;
+    const vc = v.viewCount || '';
+    const pt = v.publishedTime || '';
+    const av = v.channelAvatar || '';
+    const ver = v.isVerified;
+
+    let pillHtml = '';
+    if (live) {
+      pillHtml = '<div class="live-pill">LIVE</div>';
+    } else if (upcoming) {
+      pillHtml = '<div class="up-pill">UPCOMING</div>';
+    } else if (dur) {
+      pillHtml = '<div class="duration-pill">' + esc(dur) + '</div>';
+    }
+
+    card.innerHTML =
+      '<div class="thumb-wrap">' +
+        '<img src="' + escAttr(thumb) + '" alt="" loading="lazy" />' +
+        pillHtml +
+      '</div>' +
+      '<div class="card-body">' +
+        '<h3>' + esc(v.title || 'Untitled') + '</h3>' +
+        '<div class="author-row">' +
+          (av ? '<img class="c-avatar" src="' + escAttr(av) + '" alt="" />' : '') +
+          '<span class="author-name">' + esc(v.author || 'Unknown') + '</span>' +
+          (ver ? '<span class="verified">&#10003;</span>' : '') +
+        '</div>' +
+        '<div class="meta-row">' +
+          (vc ? '<span>' + esc(vc) + '</span>' : '') +
+          (pt ? '<span>' + esc(pt) + '</span>' : '') +
+        '</div>' +
+      '</div>';
+
+    card.addEventListener('click', () => playVideo(data.indexOf(v), card));
     results.appendChild(card);
   });
-  if (data.length > 0) playVideo(0, results.children[0]);
+
+  if (continuation) {
+    const loadBtn = document.createElement('div');
+    loadBtn.className = 'load-btn';
+    loadBtn.textContent = 'Load More...';
+    loadBtn.id = 'loadMoreBtn';
+    loadBtn.addEventListener('click', loadMore);
+    results.appendChild(loadBtn);
+  }
+}
+
+async function loadMore() {
+  if (!continuation) return;
+  const btn = document.getElementById('loadMoreBtn');
+  if (btn) { btn.textContent = 'Loading...'; btn.style.pointerEvents = 'none'; }
+  const res = await window.ytapis.loadMore({ continuation, apiKey, context });
+  if (btn) { btn.remove(); }
+  if (!res.ok) {
+    status.textContent = 'Error loading more: ' + res.error;
+    return;
+  }
+  if (!res.data || !res.data.length) {
+    continuation = null;
+    status.textContent = 'No more results.';
+    return;
+  }
+  continuation = res.continuation || null;
+  data = data.concat(res.data);
+  status.textContent = 'Found ' + data.length + ' results. Click any to play.';
+  renderResults(false);
 }
 
 function playVideo(index, cardEl) {
@@ -127,12 +252,18 @@ function playVideo(index, cardEl) {
   placeholder.style.display = 'none';
   videoTitle.textContent = v.title || 'Untitled';
   videoAuthor.textContent = v.author || 'Unknown';
+  playerAvatar.src = v.channelAvatar || '';
+  playerAvatar.style.display = v.channelAvatar ? 'inline' : 'none';
+  playerVerified.style.display = v.isVerified ? 'inline' : 'none';
+  playerMeta.textContent = [v.viewCount, v.publishedTime, v.duration ? 'Duration: ' + v.duration : '']
+    .filter(Boolean).join('  \u2022  ');
   watchLink.href = v.fullUrl || 'https://www.youtube.com/watch?v=' + v.id;
   thumbLink.href = v.thumbnail || 'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg';
   playerFrame.src = 'https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0';
 }
 
 function esc(s) { if (!s) return ''; var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function escAttr(s) { if (!s) return ''; return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 </script>
 </body>
 </html>
