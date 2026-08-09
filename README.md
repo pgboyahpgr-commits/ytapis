@@ -21,8 +21,9 @@
 | 7 | **C#** | `Ytapis` | [NuGet](https://www.nuget.org/packages/ytapis) | `dotnet add package Ytapis` |
 | 8 | **PHP** | `geethudinoyt/ytapis` | [Packagist](https://packagist.org/) | `composer require geethudinoyt/ytapis` |
 | 9 | **Kotlin** | `ytapis` | Maven Central | `implementation("ytapis:ytapis:2.0.0")` |
-| 10 | **C++** | `ytapis` | Header-only | `#include <ytapis/ytapis.hpp>` |
-| 11 | **Lua** | `ytapis` | [LuaRocks](https://luarocks.org/) | `luarocks install ytapis` |
+| 10 | **Rust** | `ytapis` | [crates.io](https://crates.io/) | `cargo add ytapis` |
+| 11 | **C++** | `ytapis` | Header-only | `#include <ytapis/ytapis.hpp>` |
+| 12 | **Lua** | `ytapis` | [LuaRocks](https://luarocks.org/) | `luarocks install ytapis` |
 
 ## VideoResult Schema
 
@@ -151,6 +152,14 @@ val video = Ytapis.getVideo("dQw4w9WgXcQ")
 println("${video.title} - ${video.viewCount}")
 ```
 
+### Rust
+
+```rust
+let results = ytapis::search("cats", Some(5), None, None)?;
+println!("{} - {}", results[0].title, results[0].view_count);
+let video = ytapis::get_video("dQw4w9WgXcQ")?;
+```
+
 ### C++
 
 ```cpp
@@ -264,6 +273,7 @@ ytapis/
 ├── kotlin/           # Kotlin library (Maven) + CLI
 ├── cpp/              # C++ header-only library + CLI
 ├── lua/              # Lua library (LuaRocks) + CLI
+├── rust/             # Rust library (crates.io) + CLI
 ├── apps/             # Desktop apps (tkinter, Electron, Flutter)
 ├── extension/        # Chrome/Firefox browser extension
 ├── demo/             # GitHub Pages live search demo
