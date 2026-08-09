@@ -283,26 +283,6 @@ ytapis/
 
 ---
 
-## Contributors
-
-<table>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/geethudinoyt">
-        <img src="https://github.com/geethudinoyt.png" width="80" height="80" style="border-radius:50%"><br>
-        <b>geethudinoyt</b>
-      </a><br>
-      <span>Creator & Maintainer</span>
-    </td>
-    <td align="center">
-      <a href="https://github.com/geethudinoyt">
-        <img src="https://github.com/geethudinoyt.png" width="80" height="80" style="border-radius:50%"><br>
-        <b>geethudino (Ruthvik)</b>
-      </a><br>
-      <span>Core Developer</span>
-    </td>
-  </tr>
-</table>
 
 ---
 
