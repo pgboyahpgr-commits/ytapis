@@ -24,6 +24,7 @@
 | 10 | **Rust** | `ytapis` | [crates.io](https://crates.io/) | `cargo add ytapis` |
 | 11 | **Swift** | `Ytapis` | SPM | `.package(url: "https://github.com/...", from: "2.0.0")` |
 | 12 | **C++** | `ytapis` | Header-only | `#include <ytapis/ytapis.hpp>` |
+| 13 | **Lua** | `ytapis` | [LuaRocks](https://luarocks.org/) | `luarocks install ytapis` |
 
 ## VideoResult Schema
 
@@ -176,6 +177,16 @@ auto results = ytapis::search("cats", 5);
 std::cout << results.results[0].title << std::endl;
 ```
 
+### Lua
+
+```lua
+local ytapis = require("ytapis")
+local results = ytapis.search("cats", 5)
+for _, v in ipairs(results) do
+  print(v.title .. " - " .. v.author)
+end
+```
+
 ### CLI
 
 ```bash
@@ -272,6 +283,7 @@ ytapis/
 ├── rust/             # Rust library (crates.io) + CLI
 ├── swift/            # Swift library (SPM) + CLI
 ├── cpp/              # C++ header-only library + CLI
+├── lua/              # Lua library (LuaRocks) + CLI
 ├── apps/             # Desktop apps (tkinter, Electron, Flutter)
 ├── extension/        # Chrome/Firefox browser extension
 ├── demo/             # GitHub Pages live search demo
