@@ -295,8 +295,8 @@ ytapis/
       <span>Creator & Maintainer</span>
     </td>
     <td align="center">
-      <a href="https://github.com/geethudino">
-        <img src="https://github.com/geethudino.png" width="80" height="80" style="border-radius:50%"><br>
+      <a href="https://github.com/geethudinoyt">
+        <img src="https://github.com/geethudinoyt.png" width="80" height="80" style="border-radius:50%"><br>
         <b>geethudino (Ruthvik)</b>
       </a><br>
       <span>Core Developer</span>
