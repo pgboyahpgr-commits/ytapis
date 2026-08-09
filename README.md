@@ -2,7 +2,7 @@
 
 
 
-> **10 languages. 17 functions. Zero API key.** Search YouTube and get rich video metadata — no Google account, no OAuth, no sign-up required.
+> **11 languages. 17 functions. Zero API key.** Search YouTube and get rich video metadata — no Google account, no OAuth, no sign-up required.
 
 **[Live Demo](https://ytapis.djalokyt27.workers.dev)** | **[Full API Docs](API.md)** | **[Desktop Apps](#desktop-apps)**
 
@@ -21,14 +21,12 @@
 | 7 | **C#** | `Ytapis` | [NuGet](https://www.nuget.org/packages/ytapis) | `dotnet add package Ytapis` |
 | 8 | **PHP** | `geethudinoyt/ytapis` | [Packagist](https://packagist.org/) | `composer require geethudinoyt/ytapis` |
 | 9 | **Kotlin** | `ytapis` | Maven Central | `implementation("ytapis:ytapis:2.0.0")` |
-| 10 | **Rust** | `ytapis` | [crates.io](https://crates.io/) | `cargo add ytapis` |
-| 11 | **Swift** | `Ytapis` | SPM | `.package(url: "https://github.com/...", from: "2.0.0")` |
-| 12 | **C++** | `ytapis` | Header-only | `#include <ytapis/ytapis.hpp>` |
-| 13 | **Lua** | `ytapis` | [LuaRocks](https://luarocks.org/) | `luarocks install ytapis` |
+| 10 | **C++** | `ytapis` | Header-only | `#include <ytapis/ytapis.hpp>` |
+| 11 | **Lua** | `ytapis` | [LuaRocks](https://luarocks.org/) | `luarocks install ytapis` |
 
 ## VideoResult Schema
 
-All 10 languages return a unified `VideoResult` with 19 fields:
+All 11 languages return a unified `VideoResult` with 19 fields:
 
 | Field | Type | Example |
 |-------|------|---------|
@@ -153,22 +151,6 @@ val video = Ytapis.getVideo("dQw4w9WgXcQ")
 println("${video.title} - ${video.viewCount}")
 ```
 
-### Rust
-
-```rust
-use ytapis::search;
-let results = search("cats", 5)?;
-println!("{} - {}", results[0].title, results[0].view_count);
-```
-
-### Swift
-
-```swift
-import Ytapis
-let results = try await Ytapis.search(query: "cats", limit: 5)
-print(results[0].title)
-```
-
 ### C++
 
 ```cpp
@@ -280,8 +262,6 @@ ytapis/
 ├── csharp/           # C# library (NuGet) + CLI
 ├── php/              # PHP library (Packagist) + CLI
 ├── kotlin/           # Kotlin library (Maven) + CLI
-├── rust/             # Rust library (crates.io) + CLI
-├── swift/            # Swift library (SPM) + CLI
 ├── cpp/              # C++ header-only library + CLI
 ├── lua/              # Lua library (LuaRocks) + CLI
 ├── apps/             # Desktop apps (tkinter, Electron, Flutter)
@@ -290,7 +270,7 @@ ytapis/
 ├── dashboard/        # Self-hosted analytics dashboard
 ├── tests/            # Integration tests + snapshots
 ├── proto/            # gRPC protobuf definitions
-└── .github/          # CI/CD + 10 publish workflows
+└── .github/          # CI/CD + 9 publish workflows
 ```
 
 ---

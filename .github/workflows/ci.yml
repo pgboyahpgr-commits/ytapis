@@ -95,22 +95,6 @@ jobs:
           gradle-version: "8.7"
       - run: gradle build -p kotlin/
 
-  rust:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions-rust-lang/setup-rust-toolchain@v1
-        with:
-          toolchain: stable
-      - run: cargo build -p ytapis --manifest-path rust/Cargo.toml
-      - run: cargo test -p ytapis --manifest-path rust/Cargo.toml
-
-  swift:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: swift build --package-path swift/
-
   cpp:
     runs-on: ubuntu-latest
     steps:

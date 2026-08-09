@@ -197,22 +197,6 @@ val response = Ytapis.search("javascript tutorial", limit = 10, gl = "US", hl = 
 println(response.results[0].title)
 ```
 
-*Rust:*
-```rust
-use ytapis;
-
-let response = ytapis::search("javascript tutorial", Some(10), Some("US"), Some("en"))?;
-println!("{}", response.results[0].title);
-```
-
-*Swift:*
-```swift
-import Ytapis
-
-let response = try await Ytapis.search("javascript tutorial", limit: 10, gl: "US", hl: "en")
-print(response.results[0].title)
-```
-
 *C++:*
 ```cpp
 #include <ytapis/ytapis.h>
@@ -394,11 +378,6 @@ console.log(`Duration: ${video.duration} (${video.durationSeconds}s)`);
 console.log(`Live: ${video.isLive}, Upcoming: ${video.isUpcoming}`);
 ```
 
-```rust
-let video = ytapis::get_video("dQw4w9WgXcQ")?;
-println!("{} by {}", video.title, video.author);
-```
-
 ```kotlin
 val video = Ytapis.getVideo("dQw4w9WgXcQ")
 println("${video.title} by ${video.author} — ${video.viewCount}")
@@ -448,12 +427,7 @@ for (const c of comments) {
 }
 ```
 
-```swift
-let response = try await Ytapis.getComments("dQw4w9WgXcQ", limit: 30, sortBy: "top")
-for comment in response.comments {
-    print("\(comment.author): \(comment.text)")
-}
-```
+
 
 ---
 
@@ -884,35 +858,6 @@ fun main() {
     val video = Ytapis.getVideo("dQw4w9WgXcQ")
     println("\"${video.title}\" — ${video.duration}")
 }
-```
-
-### Rust
-
-```rust
-// Cargo.toml: ytapis = "1.0"
-use ytapis;
-
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let resp = ytapis::search("rust tutorial", Some(5), None, None)?;
-    println!("{}", resp.results[0].title);
-
-    let video = ytapis::get_video("dQw4w9WgXcQ")?;
-    println!("\"{}\" — {}", video.title, video.duration);
-    Ok(())
-}
-```
-
-### Swift
-
-```swift
-// Package.swift: .package(url: "https://github.com/pgboyahpgr-commits/ytapis", ...)
-import Ytapis
-
-let response = try await Ytapis.search("swift tutorial", limit: 5, gl: "US", hl: "en")
-print(response.results[0].title)
-
-let video = try await Ytapis.getVideo("dQw4w9WgXcQ")
-print("\"\(video.title)\" — \(video.duration)")
 ```
 
 ### C++

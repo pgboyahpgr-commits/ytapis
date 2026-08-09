@@ -21,7 +21,7 @@ npm test
 
 ytapis follows a consistent pattern across languages. To add support for a new language:
 
-1. Copy the directory structure from an existing language (e.g. `go/` or `rust/`).
+1. Copy the directory structure from an existing language (e.g. `go/` or `kotlin/`).
 2. Implement the same public API surface:
    - `search(query, options?)` — returns search results with video metadata
    - `VideoResult` — object/dataclass with all standard fields

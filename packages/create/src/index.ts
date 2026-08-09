@@ -15,7 +15,7 @@ function c(s: string, code: string): string {
   return code + s + RESET;
 }
 
-const langChoices = ['ts', 'py', 'go', 'rust', 'csharp', 'php', 'kotlin', 'swift', 'cpp', 'dart'] as const;
+const langChoices = ['ts', 'py', 'go', 'csharp', 'php', 'kotlin', 'cpp', 'dart'] as const;
 type Lang = (typeof langChoices)[number];
 const templateChoices = ['basic', 'server', 'cli', 'desktop'] as const;
 type Template = (typeof templateChoices)[number];
@@ -109,11 +109,6 @@ const goBasic: TemplateFn = (name) => ({
   'main.go': `package main\n\nimport (\n\t"fmt"\n\tytapi "github.com/pgboyahpgr-commits/ytapis/go"\n)\n\nfunc main() {\n\tresults, err := ytapi.Search("cats", 5)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\tfor _, r := range results {\n\t\tfmt.Println(r.Title)\n\t}\n}\n`,
 });
 
-const rustBasic: TemplateFn = (name) => ({
-  'Cargo.toml': `[package]\nname = "${name}"\nversion = "1.0.0"\nedition = "2021"\n\n[dependencies]\n`,
-  'src/main.rs': `fn main() {\n    println!("ytapis project — implement search via ytapis API");\n}\n`,
-});
-
 const csharpBasic: TemplateFn = (name) => ({
   `${name}.csproj`: `<Project Sdk="Microsoft.NET.Sdk">\n  <PropertyGroup>\n    <OutputType>Exe</OutputType>\n    <TargetFramework>net8.0</TargetFramework>\n  </PropertyGroup>\n</Project>\n`,
   'Program.cs': `using System;\nusing System.Net.Http;\n\nclass Program {\n  static async Task Main() {\n    Console.WriteLine("ytapis project — implement search via ytapis API");\n  }\n}\n`,
@@ -125,10 +120,6 @@ const phpBasic: TemplateFn = (_name) => ({
 
 const kotlinBasic: TemplateFn = (_name) => ({
   'Main.kt': `fun main() {\n    println("ytapis project — implement search via ytapis API")\n}\n`,
-});
-
-const swiftBasic: TemplateFn = (_name) => ({
-  'main.swift': `import Foundation\n\nprint("ytapis project — implement search via ytapis API")\n`,
 });
 
 const cppBasic: TemplateFn = (name) => ({
@@ -145,11 +136,9 @@ const templates: Record<string, Record<string, TemplateFn>> = {
   ts: { basic: tsBasic, server: tsServer, cli: tsCli, desktop: tsDesktop },
   py: { basic: pyBasic, server: pyBasic, cli: pyBasic, desktop: pyBasic },
   go: { basic: goBasic, server: goBasic, cli: goBasic, desktop: goBasic },
-  rust: { basic: rustBasic, server: rustBasic, cli: rustBasic, desktop: rustBasic },
   csharp: { basic: csharpBasic, server: csharpBasic, cli: csharpBasic, desktop: csharpBasic },
   php: { basic: phpBasic, server: phpBasic, cli: phpBasic, desktop: phpBasic },
   kotlin: { basic: kotlinBasic, server: kotlinBasic, cli: kotlinBasic, desktop: kotlinBasic },
-  swift: { basic: swiftBasic, server: swiftBasic, cli: swiftBasic, desktop: swiftBasic },
   cpp: { basic: cppBasic, server: cppBasic, cli: cppBasic, desktop: cppBasic },
   dart: { basic: dartBasic, server: dartBasic, cli: dartBasic, desktop: dartBasic },
 };

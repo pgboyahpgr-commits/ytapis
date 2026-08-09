@@ -7,8 +7,6 @@ dart/
 csharp/
 php/
 kotlin/
-rust/
-swift/
 cpp/
 *.test.*
 *.spec.*

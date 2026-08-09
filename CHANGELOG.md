@@ -10,7 +10,7 @@
 
 ### Added
 
-- 10 language support (TS, Python, Go, Dart, C#, PHP, Kotlin, Rust, Swift, C++)
+- 11 language support (TS, Python, Go, Dart, C#, PHP, Kotlin, C++, Lua)
 - YouTube Shorts search
 - Channel metadata (subscribers, banner, description, links)
 - Video comments with threaded replies

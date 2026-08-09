@@ -17,7 +17,7 @@ No. ytapis scrapes YouTube search results and enriches them via the public oEmbe
 
 ### Which languages are supported?
 
-TypeScript, Python, Go, Dart, C#, PHP, Kotlin, Rust, Swift, and C++. All provide the same `search()` API and `VideoResult` type.
+TypeScript, Python, Go, Dart, C#, PHP, Kotlin, C++, and Lua. All provide the same `search()` API and `VideoResult` type.
 
 ### Does this violate YouTube's Terms of Service?
 
