@@ -1,15 +1,6 @@
 # ytapis
 
-[![npm](https://img.shields.io/npm/v/ytapis-core?label=npm)](https://www.npmjs.com/package/ytapis-core)
-[![PyPI](https://img.shields.io/pypi/v/ytapis?label=pypi)](https://pypi.org/project/ytapis/)
-[![Go](https://img.shields.io/badge/go-reference-blue)](https://pkg.go.dev/github.com/pgboyahpgr-commits/ytapis/go)
-[![NuGet](https://img.shields.io/nuget/v/ytapis?label=nuget)](https://www.nuget.org/packages/ytapis)
-[![crates.io](https://img.shields.io/crates/v/ytapis?label=crates.io)](https://crates.io/crates/ytapis)
-[![pub.dev](https://img.shields.io/pub/v/ytapis?label=pub.dev)](https://pub.dev/packages/ytapis)
-[![Packagist](https://img.shields.io/packagist/v/geethudinoyt/ytapis?label=packagist)](https://packagist.org/packages/geethudinoyt/ytapis)
-[![MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![CI](https://github.com/pgboyahpgr-commits/ytapis/actions/workflows/ci.yml/badge.svg)](https://github.com/pgboyahpgr-commits/ytapis/actions/workflows/ci.yml)
-[![Discord](https://img.shields.io/badge/discord-join-5865F2)](https://discord.gg/ytapis)
+
 
 > **10 languages. 17 functions. Zero API key.** Search YouTube and get rich video metadata — no Google account, no OAuth, no sign-up required.
 
